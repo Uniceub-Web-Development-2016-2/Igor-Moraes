@@ -18,11 +18,11 @@ class Request
      * @param array $params
      */
     public function __construct($method, $protocol, $ip, $resource, $params) {
-        $this->method = $method;
-        $this->protocol = $protocol;
-        $this->ip = $ip;
-        $this->resource = $resource;
-        $this->params = $params;
+        $this->setMethod($method);
+        $this->setProtocol($protocol);
+        $this->setIP($ip);
+        $this->setResource($resource);
+        $this->setParams($params);
     }
 
     /**
