@@ -1,13 +1,24 @@
 <?php
 
+/**
+ * Class Request
+ * Método de requisição: [MÉTODO] [PROTOCOLO]://[IP-SERVIDOR]/[RESOURCE]?[PARAMS]
+ * Métodos: POST, GET, PUT, DELETE
+ * Protocolo: HTTP, HTTPS
+ * IP-SERVIDOR: Raw Ip (177.782.33) ou Máscara de domínio (www.google.com)
+ * Recursos: Entidades - são variáveis e dependem da aplicação.
+ * Parâmetros: Relacionados aos recursos
+ *
+ * O dispositivo cria as requests e o servidor executa
+ */
 class Request
 {
 
+    private $method;
     private $protocol;
     private $ip;
     private $resource;
     private $params;
-    private $method;
 
     /**
      * Request constructor.
@@ -23,6 +34,20 @@ class Request
         $this->setIP($ip);
         $this->setResource($resource);
         $this->setParams($params);
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethod() {
+        return $this->method;
+    }
+
+    /**
+     * @param $method
+     */
+    public function setMethod($method) {
+        $this->method = $method;
     }
 
     /**
@@ -68,7 +93,7 @@ class Request
     }
 
     /**
-     * @return array
+     * @return array String
      */
     public function getParams() {
         return $this->params;
@@ -82,21 +107,8 @@ class Request
     }
 
     /**
+     * Return String of the request
      * @return string
-     */
-    public function getMethod() {
-        return $this->method;
-    }
-
-    /**
-     * @param $method
-     */
-    public function setMethod($method) {
-        $this->method = $method;
-    }
-
-    /**
-     * @return string of the request
      */
     public function toString() {
         $request = $this->protocol . "://" . $this->ip . "/" . $this->resource . "?";

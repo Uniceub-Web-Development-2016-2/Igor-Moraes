@@ -16,22 +16,25 @@ class Request
 
     private $method;
     private $protocol;
-    private $ip;
+    private $server;
+    private $remote_ip;
     private $resource;
     private $params;
 
     /**
      * Request constructor.
-     * @param string $method
-     * @param string $protocol
-     * @param string $ip
-     * @param string $resource
-     * @param array $params
+     * @param $method
+     * @param $protocol
+     * @param $server
+     * @param $remote_ip
+     * @param $resource
+     * @param $params
      */
-    public function __construct($method, $protocol, $ip, $resource, $params) {
+    public function __construct($method, $protocol, $server, $remote_ip, $resource, $params) {
         $this->setMethod($method);
         $this->setProtocol($protocol);
-        $this->setIP($ip);
+        $this->setServer($server);
+        $this->setRemoteIP($remote_ip);
         $this->setResource($resource);
         $this->setParams($params);
     }
@@ -61,21 +64,35 @@ class Request
      * @param $protocol
      */
     public function setProtocol($protocol) {
-        $this->protocol = $protocol;
+        $this->protocol = substr($protocol, 0, -4);
     }
 
     /**
      * @return string
      */
-    public function getIP() {
-        return $this->ip;
+    public function getServer() {
+        return $this->server;
     }
 
     /**
-     * @param $ip
+     * @param $server
      */
-    public function setIP($ip) {
-        $this->ip = $ip;
+    public function setServer($server) {
+        $this->server = $server;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRemoteIP() {
+        return $this->remote_ip;
+    }
+
+    /**
+     * @param $remote_ip
+     */
+    public function setRemoteIP($remote_ip) {
+        $this->remote_ip = $remote_ip;
     }
 
     /**
@@ -103,7 +120,7 @@ class Request
      * @param $params
      */
     public function setParams($params) {
-        $this->params = $params;
+        $this->params = $this->paramsToArray($params);
     }
 
     /**
@@ -111,12 +128,32 @@ class Request
      * @return string
      */
     public function toString() {
-        $request = $this->protocol . "://" . $this->ip . "/" . $this->resource . "?";
+        $request = $this->protocol . "://" . $this->remote_ip . "/" . $this->resource . "?";
         foreach ($this->params as $param => $paramValue) {
             $request .= $param . "=" . $paramValue . "&";
         }
         //Removing last character "&" of the string and retrieving it
         return substr($request, 0, -1);
     }
+
+
+    /**
+     * @param $params
+     * @return mixed
+     */
+    public function paramsToArray($params) {
+        parse_str($params, $paramsArray);
+        return $paramsArray;
+    }
+
+    /**
+     * @return string
+     */
+//    public function getResourceFromURL($url) {
+//        $parsedUrl = parse_url($url);
+//        return substr($parsedUrl['path'], 1);
+//    }
+
+
 
 }
