@@ -1,0 +1,2480 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Thomisticus API",
+        "description": "A primeira versão da API do sistema de gestão de livrarias.",
+        "contact": {
+            "name": "Igor Sousa Guedes de Moraes",
+            "email": "igor.sgm@gmail.com",
+            "url": "https://github.com/Uniceub-Web-Development-2016-2/Igor-Moraes"
+        }
+    },
+    "host": "localhost:8888",
+    "basePath": "/thomisticus-api",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "tags": [
+        {
+            "name": "sellerProducts",
+            "description": "Serviços de itens vendidos pelo lojista"
+        },
+        {
+            "name": "orders",
+            "description": "Serviços para gerenciamento de pedidos"
+        },
+        {
+            "name": "loads",
+            "description": "Serviços de carga de cadastro de produtos"
+        },
+        {
+            "name": "categories",
+            "description": "Serviços para consulta de categorias"
+        },
+        {
+            "name": "products",
+            "description": "Serviços de consulta ao catálogo de produtos"
+        }
+    ],
+    "definitions": {
+        "sellerProduct": {
+            "required": [
+                "skuId",
+                "defaultPrice",
+                "salePrice",
+                "availableQuantity",
+                "totalQuantity"
+            ],
+            "properties": {
+                "skuOrigin": {
+                    "type": "string",
+                    "description": "SKU ID do produto do lojista"
+                },
+                "skuId": {
+                    "type": "string",
+                    "description": "SKU ID do produto"
+                },
+                "defaultPrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "salePrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "availableQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "installmentId": {
+                    "type": "string",
+                    "description": "ID do parcelamento do produto (não está em uso no momento)"
+                },
+                "totalQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "crossDockingTime": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "stockUpdate": {
+            "required": [
+                "availableQuantity",
+                "totalQuantity"
+            ],
+            "properties": {
+                "availableQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "totalQuantity": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "priceUpdate": {
+            "required": [
+                "defaultPrice",
+                "salePrice"
+            ],
+            "properties": {
+                "defaultPrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "salePrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "installmentId": {
+                    "type": "string",
+                    "description": "ID do parcelamento do produto"
+                }
+            }
+        },
+        "order": {
+            "required": [
+                "orderId",
+                "orderMasterId",
+                "totalAmount",
+                "purchaseDate",
+                "freightChargedAmount",
+                "freightActualAmount",
+                "orderItems",
+                "billingInformations",
+                "shippingInformationsList",
+                "inscricaoEstadual",
+                "documentNr",
+                "customerEmail",
+                "customerName",
+                "customerGender",
+                "customerPhoneNumber",
+                "paymentTpId",
+                "freightAdditionalInfo",
+                "approvedDate",
+                "trackingList"
+            ],
+            "properties": {
+                "orderId": {
+                    "type": "string",
+                    "description": "ID do pedido"
+                },
+                "orderMasterId": {
+                    "type": "string",
+                    "description": "ID do pedido master"
+                },
+                "totalAmount": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "purchaseDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "approvedDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "freightChargedAmount": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "freightActualAmount": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "freightAdditionalInfo": {
+                    "type": "string"
+                },
+                "paymentTpId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "inscricaoEstadual": {
+                    "type": "string",
+                    "description": "Inscrição estadual (IE)"
+                },
+                "customerName": {
+                    "type": "string",
+                    "description": "Nome do cliente"
+                },
+                "customerGender": {
+                    "type": "string",
+                    "description": "Sexo do cliente (em caso de pessoa física)"
+                },
+                "documentNr": {
+                    "type": "string",
+                    "description": "CPF ou CNPJ do cliente"
+                },
+                "customerPhoneNumber": {
+                    "type": "string",
+                    "description": "DDD+telefone residencial (pessoa física) ou comercial (pessoa jurídica)"
+                },
+                "customerEmail": {
+                    "type": "string",
+                    "description": "e-mail do cliente gerado pelo marketplace"
+                },
+                "orderItems": {
+                    "type": "array",
+                    "description": "Lista de Itens do Pedido",
+                    "items": {
+                        "$ref": "#/definitions/orderItem"
+                    }
+                },
+                "billingInformations": {
+                    "type": "array",
+                    "description": "Lista de entidades billingInformation",
+                    "items": {
+                        "$ref": "#/definitions/billingInformation"
+                    }
+                },
+                "shippingInformationsList": {
+                    "type": "array",
+                    "description": "Lista de entidades shipppingInformation",
+                    "items": {
+                        "$ref": "#/definitions/shippingInformation"
+                    }
+                },
+                "trackingList": {
+                    "type": "array",
+                    "description": "Lista de tracking do Pedido",
+                    "items": {
+                        "$ref": "#/definitions/tracking"
+                    }
+                }
+            }
+        },
+        "orderItem": {
+            "required": [
+                "orderItemId",
+                "skuId",
+                "salePrice",
+                "deliveryDate",
+                "freightTime",
+                "leadTime"
+            ],
+            "properties": {
+                "orderItemId": {
+                    "type": "string",
+                    "description": "ID do Item no pedido"
+                },
+                "skuId": {
+                    "type": "string",
+                    "description": "SKU ID do produto"
+                },
+                "salePrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "deliveryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "freightTime": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "leadTime": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "tracking": {
+            "required": [
+                "orderId",
+                "orderItems",
+                "controlPoint",
+                "occurenceDt",
+                "carrierName",
+                "originDeliveryId",
+                "accessKeyNfe"
+            ],
+            "properties": {
+                "orderId": {
+                    "type": "string",
+                    "description": "ID de identificação do pedido"
+                },
+                "orderItems": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Lista de identificadores dos itens no pedido"
+                },
+                "controlPoint": {
+                    "type": "string",
+                    "description": "Status do pedido. Veja o serviço /orders/{orderId}/ordersItems/trackings/ para consultar todos os controlPoits existentes."
+                },
+                "extraDescription": {
+                    "type": "string",
+                    "description": "Descrição adicional sobre tracking"
+                },
+                "occurenceDt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "carrierName": {
+                    "type": "string",
+                    "description": "Nome da transportadora"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Url para consulta na transportadora"
+                },
+                "objectId": {
+                    "type": "string",
+                    "description": "ID do objeto na transportadora"
+                },
+                "originDeliveryId": {
+                    "type": "string",
+                    "description": "ID de entrega do lojista. Esse ID deve ser único para um pedido, não podendo haver repetição entre pedidos."
+                },
+                "accessKeyNfe": {
+                    "type": "string",
+                    "description": "Número da chave de acesso à nota fiscal. A chave possui 44 dígitos e contém todas as informações da DANFE"
+                },
+                "linkNfe": {
+                    "type": "string",
+                    "description": "Url para consulta da NFE"
+                },
+                "nfe": {
+                    "type": "string"
+                },
+                "serieNfe": {
+                    "type": "string",
+                    "description": "Número de serie da Nota Fiscal"
+                }
+            }
+        },
+        "shippingInformation": {
+            "required": [
+                "deliveryType",
+                "scheduledDate",
+                "scheduledPeriod",
+                "recipientName",
+                "address",
+                "addressNr",
+                "additionalInfo",
+                "quarter",
+                "City",
+                "State",
+                "countryId",
+                "postalCd",
+                "reference",
+                "addressExtraField1",
+                "addressExtraField2",
+                "buildingNm"
+            ],
+            "properties": {
+                "deliveryType": {
+                    "type": "string",
+                    "description": "Tipo de entrega (Normal, Expressa, Economica, Garantida, Agendada)"
+                },
+                "scheduledDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "scheduledPeriod": {
+                    "type": "string",
+                    "description": "Período da entrega agendada (quando existir)"
+                },
+                "recipientName": {
+                    "type": "string",
+                    "description": "Nome do contato no endereço"
+                },
+                "address": {
+                    "type": "string",
+                    "description": "Endereço (nome da rua, avenida ... )"
+                },
+                "addressNr": {
+                    "type": "string",
+                    "description": "Número do endereço"
+                },
+                "additionalInfo": {
+                    "type": "string",
+                    "description": "Informações adicionais para entrega"
+                },
+                "quarter": {
+                    "type": "string",
+                    "description": "Bairro"
+                },
+                "City": {
+                    "type": "string",
+                    "description": "Cidade"
+                },
+                "State": {
+                    "type": "string",
+                    "description": "Estado"
+                },
+                "countryId": {
+                    "type": "string",
+                    "description": "Identificação do País. Baseado na ISO-3166, padrão alpha 2"
+                },
+                "postalCd": {
+                    "type": "string",
+                    "description": "Código de Enderaçamento Postal"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "Referência para entrega"
+                },
+                "addressExtraField1": {
+                    "type": "string",
+                    "description": "Campo extra para endereço 1"
+                },
+                "addressExtraField2": {
+                    "type": "string",
+                    "description": "Campo extra para endereço 2"
+                },
+                "buildingNm": {
+                    "type": "string",
+                    "description": "Número do prédio"
+                }
+            }
+        },
+        "billingInformation": {
+            "required": [
+                "address",
+                "addressNr",
+                "additionalInfo",
+                "quarter",
+                "city",
+                "state",
+                "countryId",
+                "postalCd",
+                "reference",
+                "addressExtraField1",
+                "addressExtraField2",
+                "buildingNm"
+            ],
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "description": "Endereço (nome da rua, avenida ... )"
+                },
+                "addressNr": {
+                    "type": "string",
+                    "description": "Número do endereço"
+                },
+                "additionalInfo": {
+                    "type": "string",
+                    "description": "Informações adicionais"
+                },
+                "quarter": {
+                    "type": "string",
+                    "description": "Bairro"
+                },
+                "city": {
+                    "type": "string",
+                    "description": "Cidade"
+                },
+                "state": {
+                    "type": "string",
+                    "description": "Estado"
+                },
+                "countryId": {
+                    "type": "string",
+                    "description": "Identificação do País. Baseado na ISO-3166, padrão alpha 2"
+                },
+                "postalCd": {
+                    "type": "string"
+                },
+                "reference": {
+                    "type": "string",
+                    "description": "Referência para entrega"
+                },
+                "addressExtraField1": {
+                    "type": "string",
+                    "description": "Campo extra para endereço 1"
+                },
+                "addressExtraField2": {
+                    "type": "string",
+                    "description": "Campo extra para endereço 2"
+                },
+                "buildingNm": {
+                    "type": "string",
+                    "description": "Número do prédio"
+                }
+            }
+        },
+        "orderStatusNew": {
+            "required": [
+                "orderId",
+                "orderMasterId",
+                "totalAmount",
+                "purchaseDate",
+                "freightChargedAmount",
+                "freightActualAmount",
+                "orderItems",
+                "billingInformations",
+                "inscricaoEstadual",
+                "documentNr",
+                "customerEmail",
+                "customerName",
+                "customerGender",
+                "customerPhoneNumber",
+                "paymentTpId",
+                "freightAdditionalInfo",
+                "approvedDate"
+            ],
+            "properties": {
+                "orderId": {
+                    "type": "string",
+                    "description": "ID do pedido"
+                },
+                "orderMasterId": {
+                    "type": "string",
+                    "description": "ID do pedido master"
+                },
+                "totalAmount": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "purchaseDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "freightChargedAmount": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "freightActualAmount": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "orderItems": {
+                    "type": "array",
+                    "description": "Lista de Itens do Pedido",
+                    "items": {
+                        "$ref": "#/definitions/orderItemStatusNew"
+                    }
+                },
+                "billingInformations": {
+                    "type": "array",
+                    "description": "Lista de entidades billingInformation",
+                    "items": {
+                        "$ref": "#/definitions/billingInformation"
+                    }
+                },
+                "documentNr": {
+                    "type": "string",
+                    "description": "CPF ou CNPJ do cliente"
+                },
+                "inscricaoEstadual": {
+                    "type": "string",
+                    "description": "Inscrição estadual (IE)"
+                },
+                "customerEmail": {
+                    "type": "string",
+                    "description": "e-mail do cliente gerado pelo marketplace"
+                },
+                "customerName": {
+                    "type": "string",
+                    "description": "Nome do cliente"
+                },
+                "customerGender": {
+                    "type": "string",
+                    "description": "Sexo do cliente (em caso de pessoa física)"
+                },
+                "paymentTpId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "freightAdditionalInfo": {
+                    "type": "string"
+                },
+                "approvedDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "customerPhoneNumber": {
+                    "type": "string",
+                    "description": "DDD+telefone residencial (pessoa física) ou comercial (pessoa jurídica)"
+                }
+            }
+        },
+        "orderItemStatusNew": {
+            "required": [
+                "orderItemId",
+                "skuId",
+                "salePrice",
+                "deliveryDate",
+                "freightTime",
+                "leadTime"
+            ],
+            "properties": {
+                "orderItemId": {
+                    "type": "string",
+                    "description": "ID do Item no pedido"
+                },
+                "skuId": {
+                    "type": "string",
+                    "description": "SKU ID do produto"
+                },
+                "salePrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "deliveryDate": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "freightTime": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "leadTime": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "trackingUpdate": {
+            "required": [
+                "orderItemId",
+                "controlPoint",
+                "occurenceDt",
+                "carrierName",
+                "originDeliveryId",
+                "accessKeyNfe"
+            ],
+            "properties": {
+                "orderItemId": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Lista de IDs dos Itens do pedido"
+                },
+                "controlPoint": {
+                    "type": "string",
+                    "description": "Status do pedido"
+                },
+                "extraDescription": {
+                    "type": "string",
+                    "description": "Descrição adicional sobre tracking"
+                },
+                "occurenceDt": {
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "carrierName": {
+                    "type": "string",
+                    "description": "Nome da transportadora"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "Url para consulta na transportadora"
+                },
+                "objectId": {
+                    "type": "string",
+                    "description": "ID do objeto na transportadora"
+                },
+                "originDeliveryId": {
+                    "type": "string",
+                    "description": "ID de entrega do lojista. Esse ID deve ser único para um pedido, não podendo haver repetição entre pedidos."
+                },
+                "accessKeyNfe": {
+                    "type": "string",
+                    "description": "Número da chave de acesso à nota fiscal. A chave possui 44 dígitos e contém todas as informações da DANFE"
+                },
+                "linkNfe": {
+                    "type": "string",
+                    "description": "Url para consulta da NFE"
+                },
+                "nfe": {
+                    "type": "string"
+                },
+                "serieNfe": {
+                    "type": "string",
+                    "description": "Número de serie da Nota Fiscal"
+                }
+            }
+        },
+        "itemCancelationRequest": {
+            "required": [
+                "orderItemIdList",
+                "reason"
+            ],
+            "properties": {
+                "orderItemIdList": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Lista de Itens do pedido"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "Texto com o motivo do cancelamento"
+                }
+            }
+        },
+        "product": {
+            "required": [
+                "skuId",
+                "prodId",
+                "sellingTitle",
+                "description",
+                "GTIN",
+                "ISBN",
+                "defaultPrice",
+                "salePrice",
+                "productUdaLists",
+                "levelIdList",
+                "Weight",
+                "Length",
+                "Width",
+                "Height",
+                "variantName",
+                "handlingTime",
+                "installmentId"
+            ],
+            "properties": {
+                "skuId": {
+                    "type": "string",
+                    "description": "SKU ID do produto"
+                },
+                "prodId": {
+                    "type": "string",
+                    "description": "ID que identifica o grupo do produto"
+                },
+                "sellingTitle": {
+                    "type": "string",
+                    "description": "Nome do sku. Ex Suma Teológica São Tomas de Aquino...."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Descrição do produto. Ex A Suma trouxe um novo conceito um novo conceito para os estudos teológicos..."
+                },
+                "GTIN": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "description": "Lista de GTIN (EAN) do produto"
+                },
+                "ISBN": {
+                    "type": "string",
+                    "description": "ISBN do produto"
+                },
+                "defaultPrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "salePrice": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "productUdaLists": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/product"
+                    }
+                },
+                "levelIdList": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "description": "ID da categoria"
+                },
+                "Weight": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "Length": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "Width": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "Height": {
+                    "type": "number",
+                    "format": "double"
+                },
+                "variantName": {
+                    "type": "string",
+                    "description": "Nome da variante do produto"
+                },
+                "handlingTime": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "installmentId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "medias": {
+                    "$ref": "#/definitions/media"
+                }
+            }
+        },
+        "loadResponse": {
+            "required": [
+                "importerInfoId",
+                "status",
+                "creationDate",
+                "executionDate"
+            ],
+            "properties": {
+                "importerInfoId": {
+                    "type": "string",
+                    "description": "ID da operação de importação"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Status do processamento de carga"
+                },
+                "creationDate": {
+                    "type": "string",
+                    "description": "Data de envio do arquivo para carga"
+                },
+                "executionDate": {
+                    "type": "string",
+                    "description": "Data de execução da carga"
+                },
+                "skuErrors": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/skuError"
+                    }
+                }
+            }
+        },
+        "skuError": {
+            "required": [
+                "skuOrigin",
+                "message"
+            ],
+            "properties": {
+                "skuOrigin": {
+                    "type": "string",
+                    "description": "SKU ID do lojista que está com problema na importação"
+                },
+                "message": {
+                    "type": "string",
+                    "description": "Descrição do problema"
+                }
+            }
+        },
+        "productLoadResponse": {
+            "required": [
+                "importerInfoId",
+                "statusCode",
+                "status",
+                "skuOrigin",
+                "creationDate"
+            ],
+            "properties": {
+                "importerInfoId": {
+                    "type": "string",
+                    "description": "ID da operação de importação"
+                },
+                "statusCode": {
+                    "type": "string",
+                    "description": "Código do Status do produto importado"
+                },
+                "status": {
+                    "type": "string",
+                    "description": "Status do produto importado"
+                },
+                "skuOrigin": {
+                    "type": "string",
+                    "description": "SKU ID do produto do lojista"
+                },
+                "creationDate": {
+                    "type": "string",
+                    "description": "Data de envio do arquivo para carga contendo o produto"
+                },
+                "problems": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/problem"
+                    }
+                }
+            }
+        },
+        "problem": {
+            "required": [
+                "fieldName",
+                "message",
+                "type"
+            ],
+            "properties": {
+                "fieldName": {
+                    "type": "string",
+                    "description": "Nome do campo do produto que está com problema ou que foi gerado algum aviso"
+                },
+                "message": {
+                    "type": "string",
+                    "description": "Descrição do problema ou aviso"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "Tipo do problema. Pode ser ERROR ou WARNING"
+                }
+            }
+        },
+        "categoryForList": {
+            "required": [
+                "levelId",
+                "levelName",
+                "levelFatherId"
+            ],
+            "properties": {
+                "levelId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "levelName": {
+                    "type": "string",
+                    "description": "Nome da categoria. Ex.: Televisores"
+                },
+                "levelFatherId": {
+                    "type": "integer",
+                    "format": "int32"
+                }
+            }
+        },
+        "category": {
+            "required": [
+                "levelId",
+                "levelName",
+                "levelFatherId",
+                "udaList"
+            ],
+            "properties": {
+                "levelId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "levelName": {
+                    "type": "string",
+                    "description": "Nome da categoria. Ex.: Televisores"
+                },
+                "levelFatherId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "udaList": {
+                    "type": "array",
+                    "description": "Lista de entidades uda",
+                    "items": {
+                        "$ref": "#/definitions/categoryuda"
+                    }
+                }
+            }
+        },
+        "categoryuda": {
+            "required": [
+                "udaId",
+                "udaName"
+            ],
+            "properties": {
+                "udaId": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "udaName": {
+                    "type": "string",
+                    "description": "Nome do atributo"
+                },
+                "variant": {
+                    "type": "boolean",
+                    "description": "Indica se é um atributo cujo valor é variável ou não"
+                }
+            }
+        },
+        "media": {
+            "required": [
+                "images"
+            ],
+            "properties": {
+                "images": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/image"
+                    }
+                },
+                "videos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/video"
+                    }
+                }
+            }
+        },
+        "image": {
+            "required": [
+                "name",
+                "url",
+                "main"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string",
+                    "description": "URL da imagem"
+                },
+                "main": {
+                    "type": "boolean",
+                    "description": "Informa se é a imagem principal do produto"
+                }
+            }
+        },
+        "video": {
+            "required": [
+                "videoName",
+                "videoUrl",
+                "videoTp"
+            ],
+            "properties": {
+                "videoName": {
+                    "type": "string"
+                },
+                "videoUrl": {
+                    "type": "string",
+                    "description": "URL do vídeo"
+                },
+                "videoTp": {
+                    "type": "string",
+                    "description": "Origem do vídeo. Ex.: youtube"
+                }
+            }
+        }
+    },
+    "paths": {
+        "/sellerProducts/{skuId}/stock": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "tags": [
+                    "sellerProducts"
+                ],
+                "description": "Atualiza a quantidade disponível para venda do Item do lojista",
+                "operationId": "updateSellerItem",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "SKU ID do produto. ",
+                        "name": "skuId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "description": "Objeto stockUpdate. ",
+                        "name": "stockUpdate",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/stockUpdate"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/sellerProducts/{skuId}/prices": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": "Serviço de atualização de preços",
+                "tags": [
+                    "sellerProducts"
+                ],
+                "operationId": "updateSellerItemPrices",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "SKU ID do produto. ",
+                        "name": "skuId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "description": "Objeto priceUpdate. ",
+                        "name": "priceUpdate",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/priceUpdate"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/sellerProducts": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": "Serviço de registro de itens de lojista",
+                "tags": [
+                    "sellerProducts"
+                ],
+                "operationId": "submitSellerItems",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "description": "Ítem do lojista. ",
+                        "name": "sellerProduct",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/sellerProduct"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/sellerProduct"
+                            }
+                        }
+                    }
+                },
+                "description": "Recupera todos os produtos associados ao lojista",
+                "tags": [
+                    "sellerProducts"
+                ],
+                "operationId": "getItems",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta. ",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta. ",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/sellerProducts/{skuId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/sellerProduct"
+                        }
+                    }
+                },
+                "description": "Recupera detalhes do item do lojista através do sku informado",
+                "tags": [
+                    "sellerProducts"
+                ],
+                "operationId": "getSellerItem",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "SKU ID do produto. ",
+                        "name": "skuId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/sellerProducts/skuOrigin/{skuOrigin}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/sellerProduct"
+                        }
+                    }
+                },
+                "description": " Recupera detalhes do item do lojista através do sku origem (sku do produto do lojista) informado.\n",
+                "tags": [
+                    "sellerProducts"
+                ],
+                "operationId": "getSellerItemBySkyOrigin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "SKU ID do produto do lojista. ",
+                        "name": "skuOrigin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/sellerProducts/status/selling": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/sellerProduct"
+                            }
+                        }
+                    }
+                },
+                "description": "Recupera produtos do lojista que estão disponíveis para venda.",
+                "tags": [
+                    "sellerProducts"
+                ],
+                "operationId": "getItemsForSale",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta. ",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta. ",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/{orderId}/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/order"
+                        }
+                    }
+                },
+                "description": " Recupera detalhes do pedido informado.        \n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getOrder",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID do pedido. ",
+                        "name": "orderId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/{orderId}/orderItems/{orderItemId}/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/orderItem"
+                        }
+                    }
+                },
+                "description": "Recupera detalhes de um Item específico do pedido. Deve ser informado um pedido e um Item do pedido válidos.",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getOrderItem",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID do pedido. ",
+                        "name": "orderId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "description": "ID do Item do pedido. ",
+                        "name": "orderItemId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/{orderId}/ordersItems/status/canceled/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": " Propõe o cancelamento dos Itens de Pedido informados. (assíncrono)\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "cancelOrderItemRequest",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID do pedido. ",
+                        "name": "orderId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "description": "Objeto itemCancelationRequest.",
+                        "name": "itemCancelationRequest",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/itemCancelationRequest"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/{orderId}/status/canceled/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": " Propõe o cancelamento do Pedido informado.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "cancelRequest",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID do pedido. ",
+                        "name": "orderId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "description": "Texto com o motivo.",
+                        "name": "reason",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/{orderId}/ordersItems/trackings/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": "Registra uma nova operação de tracking para os itens do pedido informado.",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "addTracking",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID do pedido. ",
+                        "name": "orderId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "description": "Objeto trackingUpdate.",
+                        "name": "trackingUpdate",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/trackingUpdate"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/new/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/orderStatusNew"
+                            }
+                        }
+                    }
+                },
+                "description": " Recupera uma lista de pedidos com status Novo que estão relacionados com o token do lojista informado. Este estado representa os pedidos fechados que ainda não foram aprovados, ou seja, pedidos que ainda não devem ser entregues, pois estão aguardado o pagamento. Alguns campos não serão enviados, para evitar a entrega antes da confirmação do pagamento.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getNewOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para buscar pedidos a partir da data informada. É considerada a Data de Compra na consulta. Deve ser utilizado o formato de data conforme o exemplo: 2014-07-01T08:00:00.000-03:00.",
+                        "name": "_startDate",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para buscar pedidos até a data informada. É considerada a Data de Compra na consulta. Deve ser utilizado o formato de data conforme o exemplo: 2014-07-01T08:00:00.000-03:00.",
+                        "name": "_finishDate",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/approved/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order"
+                            }
+                        }
+                    }
+                },
+                "description": " Recupera uma lista de pedidos com status Aprovado que estão relacionados com o token do lojista informado. Este serviço irá retornar um ou mais pedidos que já possua pagamento aprovado, ou seja, são pedidos que podem ter o processo de entrega iniciado de imediato.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getApprovedOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para buscar pedidos até a data informada. É considerada a Data de Aprovação na consulta. Deve ser utilizado o formato de data conforme o exemplo: 2014-07-01T08:00:00.000-03:00.",
+                        "name": "_startDate",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para buscar pedidos até a data informada. É considerada a Data de Aprovação na consulta. Deve ser utilizado o formato de data conforme o exemplo: 2014-07-01T08:00:00.000-03:00.",
+                        "name": "_finishDate",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/sent/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order"
+                            }
+                        }
+                    }
+                },
+                "description": " Recupera uma lista de pedidos com status Enviado que estão relacionados com o token do lojista informado. Este estado representa os pedidos cujos itens foram todos entregues.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getSentOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/delivered/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order"
+                            }
+                        }
+                    }
+                },
+                "description": "\nRecupera uma lista de pedidos com status Entregue que estão relacionados com o token do lojista informado. Este estado representa os pedidos cujos itens foram todos entregues.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getDeliveredOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/canceled/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order"
+                            }
+                        }
+                    }
+                },
+                "description": " Retorna uma lista de pedidos com status Cancelado que estão relacionados com o token do lojista informado.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getCanceledOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/partiallyDelivered/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order"
+                            }
+                        }
+                    }
+                },
+                "description": " Retorna uma lista de pedidos com status Parcialmente Entregue que estão relacionados com o token do lojista informado.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getPartiallyDeliveredOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/sentPartially/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/order"
+                            }
+                        }
+                    }
+                },
+                "description": " Retorna uma lista de pedidos com status Enviado Parcialmente que estão relacionados com o token do lojista informado.\nOcorre quando um ou mais itens foram enviados, porém ainda existem itens que não foram enviados.\n",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "getPartiallySentOrders",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API.",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API.",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta.",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta.",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": "Operação que cria um pedido.",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "createOrder",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "description": "Pedido. Tipo de parâmetro: body",
+                        "name": "order",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/order"
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API em ambiente de testes (Sandbox). Tipo de parâmetro: header",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. Tipo de parâmetro: header",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/orders/status/approved/{orderId}": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": "Operação para realizar a aprovação de um pedido. O Pedido só pode ser aprovado após aparecer com status NEW. Será possível consultar os pedidos através do serviço GET /orders/status/approved.",
+                "tags": [
+                    "orders"
+                ],
+                "operationId": "approveOrder",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID da pedido. Tipo de parâmetro: path",
+                        "name": "orderId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API em ambiente de testes (Sandbox). Tipo de parâmetro: header",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. Tipo de parâmetro: header",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/loads/products": {
+            "post": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified"
+                    }
+                },
+                "description": "Operação utilizada para enviar carga contendo novos produtos. (assíncrono)",
+                "tags": [
+                    "loads"
+                ],
+                "operationId": "createNewProduct",
+                "parameters": [
+                    {
+                        "in": "body",
+                        "description": "Arquivo em formato GZip cujo conteúdo é um arquivo JSON que contêm uma lista de objetos product. ",
+                        "name": "Gzip contendo um Array[product]",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/product"
+                            }
+                        }
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/loads/products/{importerInfoId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/loadResponse"
+                        }
+                    }
+                },
+                "description": " Operação utilizada para consultar o status da carga dos produtos. Possíveis status retornados por esse serviço:  (Aguardando transferência, Processado com sucesso, Aprovado, Arquivo inválido, Cancelado)\n",
+                "tags": [
+                    "loads"
+                ],
+                "operationId": "getProductsLoadStatus",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID da operação de importação. ",
+                        "name": "importerInfoId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/loads/products/{importerInfoId}/{skuOrigin}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/productLoadResponse"
+                        }
+                    }
+                },
+                "description": "Operação utilizada para consultar o status de um produto carregado através de operação de importação.",
+                "tags": [
+                    "loads"
+                ],
+                "operationId": "getProductLoadStatusBySkuOrigin",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID da operação de importação. ",
+                        "name": "importerInfoId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "description": "SKU ID do produto do lojista carregado através da operação de importação. ",
+                        "name": "skuOrigin",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/loads/{importerInfoId}/approved": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/loadResponse"
+                        }
+                    }
+                },
+                "description": "Operação de aprovação da carga de produtos.",
+                "tags": [
+                    "loads"
+                ],
+                "operationId": "getProductsLoadStatusApproved",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID da operação de importação. Tipo de parâmetro: path",
+                        "name": "importerInfoId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API em ambiente de testes (Sandbox). Tipo de parâmetro: header",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. Tipo de parâmetro: header",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/loads/{importerInfoId}/canceled": {
+            "put": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/loadResponse"
+                        }
+                    }
+                },
+                "description": "Operação de cancelamento da carga de produtos",
+                "tags": [
+                    "loads"
+                ],
+                "operationId": "getProductsLoadStatusCanceled",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID da operação de importação. Tipo de parâmetro: path",
+                        "name": "importerInfoId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API em ambiente de testes (Sandbox). Tipo de parâmetro: header",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. Tipo de parâmetro: header",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/categories": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/categoryForList"
+                            }
+                        }
+                    }
+                },
+                "description": "Recupera uma lista de categorias cadastradas.",
+                "tags": [
+                    "categories"
+                ],
+                "operationId": "getCategories",
+                "parameters": [
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta. ",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta. ",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/categories/{levelId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/category"
+                        }
+                    }
+                },
+                "description": " Recupera detalhes da categoria informada.\n",
+                "tags": [
+                    "categories"
+                ],
+                "operationId": "getCategory",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "Id da categoria",
+                        "name": "levelId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/products": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/product"
+                            }
+                        }
+                    }
+                },
+                "description": "Recupera o catálogo de produtos existentes no estoque. Se o objetivo é consultar a lista de produtos vendidos, deve-se utilizar os serviços disponíveis no resource /sellerProducts",
+                "tags": [
+                    "products"
+                ],
+                "operationId": "getProducts",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "description": "Texto livre para busca de produtos. - A obrigatoriedade deste parâmetro está relacionada ao preenchimento do parâmetro ´category´, um dos dois deve ser preenchido para a realização da consulta. ",
+                        "name": "searchText",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "ID da categoria utilizada para realizar busca de produtos. - A obrigatoriedade deste parâmetro está relacionada ao preenchimento do parâmetro ´searchText´, um dos dois deve ser preenchido para a realização da consulta. ",
+                        "name": "idCategory",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para indicar a posição inicial de consulta. ",
+                        "name": "_offset",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "description": "Parâmetro utilizado para limitar a quantidade de registros trazidos pela consulta. ",
+                        "name": "_limit",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/products/{productId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/product"
+                            }
+                        }
+                    }
+                },
+                "description": "Recupera a lista de produtos (skus) existente no catálogo de produtos do estoque que estão relacionados com o productId informado. Se o objetivo é consultar a lista de produtos vendidos, deve-se utilizar os serviços disponíveis no resource /sellerProducts",
+                "tags": [
+                    "products"
+                ],
+                "operationId": "getProductById",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "ID que identifica o grupo do produto no estoque. ",
+                        "name": "productId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/products/sku/{skuId}": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "No response was specified",
+                        "schema": {
+                            "$ref": "#/definitions/product"
+                        }
+                    }
+                },
+                "description": "Recupera detalhes do produto existente no catálogo de produtos do estoque através do skuId informado. Se seu objetivo é consultar a lista de produtos vendidos, utilizar os serviços disponíveis no resource /sellerProducts",
+                "tags": [
+                    "products"
+                ],
+                "operationId": "getProductBySkuId",
+                "parameters": [
+                    {
+                        "in": "path",
+                        "description": "SKU ID do produto. ",
+                        "name": "skuId",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica o lojista que está utilizando a aplicação para efetuar chamadas aos recursos disponibilizados através da API. ",
+                        "name": "nova-auth-token",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "header",
+                        "description": "Token que identifica a aplicação que está efetuando a chamada aos recursos disponibilizados através da API. ",
+                        "name": "nova-app-token",
+                        "required": true,
+                        "type": "string"
+                    }
+                ]
+            }
+        }
+    }
+}
