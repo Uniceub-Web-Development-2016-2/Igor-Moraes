@@ -43,6 +43,16 @@ tags:
   #                               PATHS                       
 ############################################################################
 definitions:
+  ErrorModel:
+    type : object
+    required:
+    - code
+    - message
+    properties:
+      code:
+        type : string
+      message : 
+        type : string
   sellerProduct:
     required:
     - skuId
@@ -800,7 +810,14 @@ paths:
     put:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       tags:
       - sellerProducts
       description: Atualiza a quantidade disponível para venda do Item do lojista
@@ -833,7 +850,7 @@ paths:
     put:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
       description: Serviço de atualização de preços
       tags:
       - sellerProducts
@@ -866,7 +883,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Serviço de registro de itens de lojista
       tags:
       - sellerProducts
@@ -893,11 +917,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/sellerProduct"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera todos os produtos associados ao lojista
       tags:
       - sellerProducts
@@ -930,9 +961,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/sellerProduct"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera detalhes do item do lojista através do sku informado
       tags:
       - sellerProducts
@@ -959,9 +997,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/sellerProduct"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: " Recupera detalhes do item do lojista através do sku origem (sku
         do produto do lojista) informado.\n"
       tags:
@@ -989,7 +1034,7 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
@@ -1026,9 +1071,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/order"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Recupera detalhes do pedido informado.        
       tags:
@@ -1056,9 +1108,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/orderItem"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera detalhes de um Item específico do pedido. Deve ser informado um pedido e um Item do pedido válidos.
       tags:
       - orders
@@ -1090,7 +1149,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Propõe o cancelamento dos Itens de Pedido informados. (assíncrono)
       tags:
@@ -1124,7 +1190,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Propõe o cancelamento do Pedido informado.
       tags:
@@ -1158,7 +1231,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Registra uma nova operação de tracking para os itens do pedido informado.
       tags:
       - orders
@@ -1191,11 +1271,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/orderStatusNew"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Recupera uma lista de pedidos com status Novo que estão relacionados com o token do lojista informado. Este estado representa os pedidos fechados que ainda não foram aprovados, ou seja, pedidos que ainda não devem ser entregues, pois estão aguardado o pagamento. Alguns campos não serão enviados, para evitar a entrega antes da confirmação do pagamento.
       tags:
@@ -1243,11 +1330,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/order"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Recupera uma lista de pedidos com status Aprovado que estão relacionados com o token do lojista informado. Este serviço irá retornar um ou mais pedidos que já possua pagamento aprovado, ou seja, são pedidos que podem ter o processo de entrega iniciado de imediato.
       tags:
@@ -1295,11 +1389,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/order"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: " Recupera uma lista de pedidos com status Enviado que estão relacionados
         com o token do lojista informado. Este estado representa os pedidos cujos
         itens foram todos entregues.\n"
@@ -1334,11 +1435,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/order"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
 
         Recupera uma lista de pedidos com status Entregue que estão relacionados com o token do lojista informado. Este estado representa os pedidos cujos itens foram todos entregues.
@@ -1373,11 +1481,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/order"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: " Retorna uma lista de pedidos com status Cancelado que estão relacionados
         com o token do lojista informado.\n"
       tags:
@@ -1411,7 +1526,7 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
@@ -1449,11 +1564,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/order"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Retorna uma lista de pedidos com status Enviado Parcialmente que estão relacionados com o token do lojista informado.
         Ocorre quando um ou mais itens foram enviados, porém ainda existem itens que não foram enviados.
@@ -1488,7 +1610,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Operação que cria um pedido.
       tags:
       - orders
@@ -1517,7 +1646,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Operação para realizar a aprovação de um pedido. O Pedido só pode ser aprovado após aparecer com status NEW. Será possível consultar os pedidos através do serviço GET /orders/status/approved.
       tags:
       - orders
@@ -1545,7 +1681,14 @@ paths:
     post:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description:  Operação utilizada para enviar carga contendo novos produtos. (assíncrono)
       tags:
       - loads
@@ -1576,9 +1719,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/loadResponse"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Operação utilizada para consultar o status da carga dos produtos. Possíveis status retornados por esse serviço:  (Aguardando transferência, Processado com sucesso, Aprovado, Arquivo inválido, Cancelado)
       tags:
@@ -1606,9 +1756,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/productLoadResponse"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Operação utilizada para consultar o status de um produto carregado
         através de operação de importação.
       tags:
@@ -1642,9 +1799,16 @@ paths:
     put:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/loadResponse"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Operação de aprovação da carga de produtos.
       tags:
       - loads
@@ -1672,9 +1836,16 @@ paths:
     put:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/loadResponse"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Operação de cancelamento da carga de produtos
       tags:
       - loads
@@ -1702,11 +1873,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/categoryForList"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera uma lista de categorias cadastradas.
       tags:
       - categories
@@ -1739,9 +1917,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/category"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: |2
          Recupera detalhes da categoria informada.
       tags:
@@ -1769,11 +1954,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/product"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera o catálogo de produtos existentes no estoque. Se
         o objetivo é consultar a lista de produtos vendidos, deve-se utilizar os serviços
         disponíveis no resource /sellerProducts
@@ -1822,11 +2014,18 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             type: array
             items:
               "$ref": "#/definitions/product"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera a lista de produtos (skus) existente no catálogo de
         produtos do estoque que estão relacionados com o productId informado.
         Se o objetivo é consultar a lista de produtos vendidos, deve-se utilizar os serviços
@@ -1856,9 +2055,16 @@ paths:
     get:
       responses:
         '200':
-          description: No response was specified
+          description: Successful
           schema:
             "$ref": "#/definitions/product"
+        '404':
+          description: Not found
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '#/definitions/ErrorModel'
       description: Recupera detalhes do produto existente no catálogo de produtos
         do estoque através do skuId informado. Se seu objetivo é consultar a lista
         de produtos vendidos, utilizar os serviços disponíveis no resource /sellerProducts

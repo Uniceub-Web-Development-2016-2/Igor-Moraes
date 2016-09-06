@@ -44,6 +44,21 @@
         }
     ],
     "definitions": {
+        "ErrorModel": {
+            "type": "object",
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
         "sellerProduct": {
             "required": [
                 "skuId",
@@ -1046,7 +1061,18 @@
             "put": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "tags": [
@@ -1092,7 +1118,7 @@
             "put": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
                     }
                 },
                 "description": "Serviço de atualização de preços",
@@ -1138,7 +1164,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": "Serviço de registro de itens de lojista",
@@ -1175,11 +1212,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/sellerProduct"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1225,9 +1273,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/sellerProduct"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -1265,9 +1324,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/sellerProduct"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -1305,7 +1375,7 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -1355,9 +1425,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/order"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -1395,9 +1476,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/orderItem"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -1442,7 +1534,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": " Propõe o cancelamento dos Itens de Pedido informados. (assíncrono)\n",
@@ -1488,7 +1591,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": " Propõe o cancelamento do Pedido informado.\n",
@@ -1534,7 +1648,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": "Registra uma nova operação de tracking para os itens do pedido informado.",
@@ -1580,11 +1705,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/orderStatusNew"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1644,11 +1780,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/order"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1708,11 +1855,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/order"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1758,11 +1916,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/order"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1808,11 +1977,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/order"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1858,7 +2038,7 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
@@ -1908,11 +2088,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/order"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -1958,7 +2149,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": "Operação que cria um pedido.",
@@ -1997,7 +2199,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": "Operação para realizar a aprovação de um pedido. O Pedido só pode ser aprovado após aparecer com status NEW. Será possível consultar os pedidos através do serviço GET /orders/status/approved.",
@@ -2034,7 +2247,18 @@
             "post": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified"
+                        "description": "Successful"
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
+                        }
                     }
                 },
                 "description": "Operação utilizada para enviar carga contendo novos produtos. (assíncrono)",
@@ -2076,9 +2300,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/loadResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -2116,9 +2351,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/productLoadResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -2163,9 +2409,20 @@
             "put": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/loadResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -2203,9 +2460,20 @@
             "put": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/loadResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -2243,11 +2511,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/categoryForList"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -2293,9 +2572,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/category"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
@@ -2333,11 +2623,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/product"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -2397,11 +2698,22 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "type": "array",
                             "items": {
                                 "$ref": "#/definitions/product"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
                             }
                         }
                     }
@@ -2440,9 +2752,20 @@
             "get": {
                 "responses": {
                     "200": {
-                        "description": "No response was specified",
+                        "description": "Successful",
                         "schema": {
                             "$ref": "#/definitions/product"
+                        }
+                    },
+                    "404": {
+                        "description": "Not found",
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "data": {
+                                    "$ref": "#/definitions/ErrorModel"
+                                }
+                            }
                         }
                     }
                 },
