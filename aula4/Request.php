@@ -13,24 +13,24 @@
  */
 class Request
 {
-    private $method;
-    private $protocol;
-    private $serverAddress;
-    private $clientAddress;
-    private $path;
-    private $queryString;
-    private $body;
+	private $method;
+	private $protocol;
+	private $serverAddress;
+	private $clientAddress;
+	private $path;
+	private $queryString;
+	private $body;
 
 
-    public function __construct($method, $protocol, $serverAddress, $clientAddress, $path, $queryString, $body)
-    {
-        $this->method = $method;
-        $this->protocol = $protocol;
-        $this->serverAddress = $serverAddress;
-        $this->clientAddress = $clientAddress;
-        $this->path = $path;
-        $this->queryString = $queryString;
-        $this->body = $body;
-    }
+	public function __construct($method, $protocol, $serverAddress, $clientAddress, $path, $queryString, $body)
+	{
+		$this->method = $method;
+		$this->protocol = $protocol;
+		$this->serverAddress = $serverAddress;
+		$this->clientAddress = $clientAddress;
+		$this->path = $path;
+		$this->queryString = $queryString;
+		$this->body = $body;
+	}
 
 }

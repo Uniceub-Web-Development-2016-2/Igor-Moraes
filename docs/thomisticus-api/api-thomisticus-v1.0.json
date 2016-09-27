@@ -1,0 +1,3622 @@
+{
+  "swagger": "2.0",
+  "info": {
+	"description": "",
+	"version": "1.6.0",
+	"title": "Thomisticus API",
+	"contact": {
+	  "name": "Igor Moraes",
+	  "email": "igor.sgm@gmail.com"
+	}
+  },
+  "host": "localhost:8888",
+  "basePath": "/v1",
+  "tags": [
+	{
+	  "name": "User"
+	},
+	{
+	  "name": "City"
+	},
+	{
+	  "name": "Collection"
+	},
+	{
+	  "name": "Default",
+	  "description": "Default section"
+	},
+	{
+	  "name": "Publisher"
+	},
+	{
+	  "name": "Category"
+	},
+	{
+	  "name": "Order"
+	},
+	{
+	  "name": "Book"
+	},
+	{
+	  "name": "Thomisticus",
+	  "description": "Imported from Thomisticus"
+	},
+	{
+	  "name": "UsergroupMap",
+	  "description": "Relationship between users and usergroups"
+	},
+	{
+	  "name": "State"
+	},
+	{
+	  "name": "Author"
+	},
+	{
+	  "name": "ItemOrder",
+	  "description": "Relationship between books and orders"
+	},
+	{
+	  "name": "Usergroup"
+	}
+  ],
+  "schemes": [
+	"https"
+  ],
+  "paths": {
+	"/authors/": {
+	  "get": {
+		"tags": [
+		  "Author"
+		],
+		"description": "Loads a list of author",
+		"operationId": "getAuthors",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/author"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Author"
+		],
+		"description": "Adds a author",
+		"operationId": "postAuthors",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/author"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/author"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/authors/{authorid}": {
+	  "get": {
+		"tags": [
+		  "Author"
+		],
+		"description": "Loads a author",
+		"operationId": "getAuthorsAuthorid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "authorid",
+			"in": "path",
+			"description": "Identifier of the author",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/author"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Author"
+		],
+		"description": "Stores a author",
+		"operationId": "putAuthorsAuthorid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "authorid",
+			"in": "path",
+			"description": "Identifier of the author",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/author"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/author"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Author"
+		],
+		"description": "Deletes a author",
+		"operationId": "deleteAuthorsAuthorid",
+		"parameters": [
+		  {
+			"name": "authorid",
+			"in": "path",
+			"description": "Identifier of the author",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/books/": {
+	  "get": {
+		"tags": [
+		  "Book"
+		],
+		"description": "Loads a list of book",
+		"operationId": "getBooks",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "id_collection",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_collection",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_collection"
+		  },
+		  {
+			"name": "publish_place",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field publish_place",
+			"required": false,
+			"type": "string",
+			"x-example": "sample publish_place"
+		  },
+		  {
+			"name": "edition",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field edition",
+			"required": false,
+			"type": "string",
+			"x-example": "sample edition"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "id_category",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_category",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_category"
+		  },
+		  {
+			"name": "abstract",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field abstract",
+			"required": false,
+			"type": "string",
+			"x-example": "sample abstract"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "stock",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field stock",
+			"required": false,
+			"type": "string",
+			"x-example": "sample stock"
+		  },
+		  {
+			"name": "price_sale",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field price_sale",
+			"required": false,
+			"type": "string",
+			"x-example": "sample price_sale"
+		  },
+		  {
+			"name": "id_publisher",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_publisher",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_publisher"
+		  },
+		  {
+			"name": "call_number",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field call_number",
+			"required": false,
+			"type": "string",
+			"x-example": "sample call_number"
+		  },
+		  {
+			"name": "publish_date",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field publish_date",
+			"required": false,
+			"type": "string",
+			"x-example": "sample publish_date"
+		  },
+		  {
+			"name": "isbn",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field isbn",
+			"required": false,
+			"type": "string",
+			"x-example": "sample isbn"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id_author",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_author",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_author"
+		  },
+		  {
+			"name": "notes",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field notes",
+			"required": false,
+			"type": "string",
+			"x-example": "sample notes"
+		  },
+		  {
+			"name": "price_cost",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field price_cost",
+			"required": false,
+			"type": "string",
+			"x-example": "sample price_cost"
+		  },
+		  {
+			"name": "volume",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field volume",
+			"required": false,
+			"type": "string",
+			"x-example": "sample volume"
+		  },
+		  {
+			"name": "title",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field title",
+			"required": false,
+			"type": "string",
+			"x-example": "sample title"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/book"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Book"
+		],
+		"description": "Adds a book",
+		"operationId": "postBooks",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/book"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/book"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/books/{bookid}": {
+	  "get": {
+		"tags": [
+		  "Book"
+		],
+		"description": "Loads a book",
+		"operationId": "getBooksBookid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "bookid",
+			"in": "path",
+			"description": "Identifier of the book",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/book"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Book"
+		],
+		"description": "Stores a book",
+		"operationId": "putBooksBookid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "bookid",
+			"in": "path",
+			"description": "Identifier of the book",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/book"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/book"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Book"
+		],
+		"description": "Deletes a book",
+		"operationId": "deleteBooksBookid",
+		"parameters": [
+		  {
+			"name": "bookid",
+			"in": "path",
+			"description": "Identifier of the book",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/categories/": {
+	  "get": {
+		"tags": [
+		  "Category"
+		],
+		"description": "Loads a list of category",
+		"operationId": "getCategories",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/category"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Category"
+		],
+		"description": "Adds a category",
+		"operationId": "postCategories",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/category"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/category"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/categories/{categoryid}": {
+	  "get": {
+		"tags": [
+		  "Category"
+		],
+		"description": "Loads a category",
+		"operationId": "getCategoriesCategoryid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "categoryid",
+			"in": "path",
+			"description": "Identifier of the category",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/category"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Category"
+		],
+		"description": "Stores a category",
+		"operationId": "putCategoriesCategoryid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "categoryid",
+			"in": "path",
+			"description": "Identifier of the category",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/category"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/category"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Category"
+		],
+		"description": "Deletes a category",
+		"operationId": "deleteCategoriesCategoryid",
+		"parameters": [
+		  {
+			"name": "categoryid",
+			"in": "path",
+			"description": "Identifier of the category",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/cities/": {
+	  "get": {
+		"tags": [
+		  "City"
+		],
+		"description": "Loads a list of city",
+		"operationId": "getCities",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "id_state",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_state",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_state"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/city"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "City"
+		],
+		"description": "Adds a city",
+		"operationId": "postCities",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/city"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/city"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/cities/{cityid}": {
+	  "get": {
+		"tags": [
+		  "City"
+		],
+		"description": "Loads a city",
+		"operationId": "getCitiesCityid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "cityid",
+			"in": "path",
+			"description": "Identifier of the city",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/city"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "City"
+		],
+		"description": "Stores a city",
+		"operationId": "putCitiesCityid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "cityid",
+			"in": "path",
+			"description": "Identifier of the city",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/city"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/city"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "City"
+		],
+		"description": "Deletes a city",
+		"operationId": "deleteCitiesCityid",
+		"parameters": [
+		  {
+			"name": "cityid",
+			"in": "path",
+			"description": "Identifier of the city",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/collections/": {
+	  "get": {
+		"tags": [
+		  "Collection"
+		],
+		"description": "Loads a list of collection",
+		"operationId": "getCollections",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "description",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field description",
+			"required": false,
+			"type": "string",
+			"x-example": "sample description"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/collection"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Collection"
+		],
+		"description": "Adds a collection",
+		"operationId": "postCollections",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/collection"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/collection"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/collections/{collectionid}": {
+	  "get": {
+		"tags": [
+		  "Collection"
+		],
+		"description": "Loads a collection",
+		"operationId": "getCollectionsCollectionid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "collectionid",
+			"in": "path",
+			"description": "Identifier of the collection",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/collection"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Collection"
+		],
+		"description": "Stores a collection",
+		"operationId": "putCollectionsCollectionid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "collectionid",
+			"in": "path",
+			"description": "Identifier of the collection",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/collection"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/collection"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Collection"
+		],
+		"description": "Deletes a collection",
+		"operationId": "deleteCollectionsCollectionid",
+		"parameters": [
+		  {
+			"name": "collectionid",
+			"in": "path",
+			"description": "Identifier of the collection",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/itemOrders/": {
+	  "get": {
+		"tags": [
+		  "ItemOrder"
+		],
+		"description": "Loads a list of item_order",
+		"operationId": "getItemOrders",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "id_order",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_order",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_order"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "price",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field price",
+			"required": false,
+			"type": "string",
+			"x-example": "sample price"
+		  },
+		  {
+			"name": "id_book",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_book",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_book"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "quantity",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field quantity",
+			"required": false,
+			"type": "string",
+			"x-example": "sample quantity"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/item_order"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "ItemOrder"
+		],
+		"description": "Adds a item_order",
+		"operationId": "postItemOrders",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/item_order"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/item_order"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/itemOrders/{item_orderid}": {
+	  "get": {
+		"tags": [
+		  "ItemOrder"
+		],
+		"description": "Loads a item_order",
+		"operationId": "getItemOrdersItem_orderid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "item_orderid",
+			"in": "path",
+			"description": "Identifier of the item_order",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/item_order"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "ItemOrder"
+		],
+		"description": "Stores a item_order",
+		"operationId": "putItemOrdersItem_orderid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "item_orderid",
+			"in": "path",
+			"description": "Identifier of the item_order",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/item_order"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/item_order"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "ItemOrder"
+		],
+		"description": "Deletes a item_order",
+		"operationId": "deleteItemOrdersItem_orderid",
+		"parameters": [
+		  {
+			"name": "item_orderid",
+			"in": "path",
+			"description": "Identifier of the item_order",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/orders/": {
+	  "get": {
+		"tags": [
+		  "Order"
+		],
+		"description": "Loads a list of order",
+		"operationId": "getOrders",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "order_date",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field order_date",
+			"required": false,
+			"type": "string",
+			"x-example": "sample order_date"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "discount",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field discount",
+			"required": false,
+			"type": "string",
+			"x-example": "sample discount"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id_user",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_user",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_user"
+		  },
+		  {
+			"name": "notes",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field notes",
+			"required": false,
+			"type": "string",
+			"x-example": "sample notes"
+		  },
+		  {
+			"name": "final_value",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field final_value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample final_value"
+		  },
+		  {
+			"name": "value",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample value"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/order"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Order"
+		],
+		"description": "Adds a order",
+		"operationId": "postOrders",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/order"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/order"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/orders/{orderid}": {
+	  "get": {
+		"tags": [
+		  "Order"
+		],
+		"description": "Loads a order",
+		"operationId": "getOrdersOrderid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "orderid",
+			"in": "path",
+			"description": "Identifier of the order",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/order"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Order"
+		],
+		"description": "Stores a order",
+		"operationId": "putOrdersOrderid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "orderid",
+			"in": "path",
+			"description": "Identifier of the order",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/order"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/order"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Order"
+		],
+		"description": "Deletes a order",
+		"operationId": "deleteOrdersOrderid",
+		"parameters": [
+		  {
+			"name": "orderid",
+			"in": "path",
+			"description": "Identifier of the order",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/publishers/": {
+	  "get": {
+		"tags": [
+		  "Publisher"
+		],
+		"description": "Loads a list of publisher",
+		"operationId": "getPublishers",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "email",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field email",
+			"required": false,
+			"type": "string",
+			"x-example": "sample email"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "site",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field site",
+			"required": false,
+			"type": "string",
+			"x-example": "sample site"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/publisher"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Publisher"
+		],
+		"description": "Adds a publisher",
+		"operationId": "postPublishers",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/publisher"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/publisher"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/publishers/{publisherid}": {
+	  "get": {
+		"tags": [
+		  "Publisher"
+		],
+		"description": "Loads a publisher",
+		"operationId": "getPublishersPublisherid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "publisherid",
+			"in": "path",
+			"description": "Identifier of the publisher",
+			"required": true,
+			"type": "string",
+			"x-example": "sample publisherid"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/publisher"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Publisher"
+		],
+		"description": "Stores a publisher",
+		"operationId": "putPublishersPublisherid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "publisherid",
+			"in": "path",
+			"description": "Identifier of the publisher",
+			"required": true,
+			"type": "string",
+			"x-example": "sample publisherid"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/publisher"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/publisher"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Publisher"
+		],
+		"description": "Deletes a publisher",
+		"operationId": "deletePublishersPublisherid",
+		"parameters": [
+		  {
+			"name": "publisherid",
+			"in": "path",
+			"description": "Identifier of the publisher",
+			"required": true,
+			"type": "string",
+			"x-example": "sample publisherid"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/states/": {
+	  "get": {
+		"tags": [
+		  "State"
+		],
+		"description": "Loads a list of state",
+		"operationId": "getStates",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "uf",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field uf",
+			"required": false,
+			"type": "string",
+			"x-example": "sample uf"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/state"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "State"
+		],
+		"description": "Adds a state",
+		"operationId": "postStates",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/state"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/state"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/states/{stateid}": {
+	  "get": {
+		"tags": [
+		  "State"
+		],
+		"description": "Loads a state",
+		"operationId": "getStatesStateid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "stateid",
+			"in": "path",
+			"description": "Identifier of the state",
+			"required": true,
+			"type": "string",
+			"x-example": "sample stateid"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/state"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "State"
+		],
+		"description": "Stores a state",
+		"operationId": "putStatesStateid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "stateid",
+			"in": "path",
+			"description": "Identifier of the state",
+			"required": true,
+			"type": "string",
+			"x-example": "sample stateid"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/state"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/state"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "State"
+		],
+		"description": "Deletes a state",
+		"operationId": "deleteStatesStateid",
+		"parameters": [
+		  {
+			"name": "stateid",
+			"in": "path",
+			"description": "Identifier of the state",
+			"required": true,
+			"type": "string",
+			"x-example": "sample stateid"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/usergroupMaps/": {
+	  "get": {
+		"tags": [
+		  "UsergroupMap"
+		],
+		"description": "Loads a list of usergroup_map",
+		"operationId": "getUsergroupMaps",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "id_group",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_group",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_group"
+		  },
+		  {
+			"name": "id_user",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_user",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_user"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/usergroup_map"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "UsergroupMap"
+		],
+		"description": "Adds a usergroup_map",
+		"operationId": "postUsergroupMaps",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/usergroup_map"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/usergroup_map"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/usergroupMaps/{usergroup_mapid}": {
+	  "get": {
+		"tags": [
+		  "UsergroupMap"
+		],
+		"description": "Loads a usergroup_map",
+		"operationId": "getUsergroupMapsUsergroup_mapid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "usergroup_mapid",
+			"in": "path",
+			"description": "Identifier of the usergroup_map",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/usergroup_map"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "UsergroupMap"
+		],
+		"description": "Stores a usergroup_map",
+		"operationId": "putUsergroupMapsUsergroup_mapid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "usergroup_mapid",
+			"in": "path",
+			"description": "Identifier of the usergroup_map",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/usergroup_map"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/usergroup_map"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "UsergroupMap"
+		],
+		"description": "Deletes a usergroup_map",
+		"operationId": "deleteUsergroupMapsUsergroup_mapid",
+		"parameters": [
+		  {
+			"name": "usergroup_mapid",
+			"in": "path",
+			"description": "Identifier of the usergroup_map",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/usergroups/": {
+	  "get": {
+		"tags": [
+		  "Usergroup"
+		],
+		"description": "Loads a list of usergroup",
+		"operationId": "getUsergroups",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "description",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field description",
+			"required": false,
+			"type": "string",
+			"x-example": "sample description"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/usergroup"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "Usergroup"
+		],
+		"description": "Adds a usergroup",
+		"operationId": "postUsergroups",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/usergroup"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/usergroup"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/usergroups/{usergroupid}": {
+	  "get": {
+		"tags": [
+		  "Usergroup"
+		],
+		"description": "Loads a usergroup",
+		"operationId": "getUsergroupsUsergroupid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "usergroupid",
+			"in": "path",
+			"description": "Identifier of the usergroup",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/usergroup"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "Usergroup"
+		],
+		"description": "Stores a usergroup",
+		"operationId": "putUsergroupsUsergroupid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "usergroupid",
+			"in": "path",
+			"description": "Identifier of the usergroup",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/usergroup"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/usergroup"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "Usergroup"
+		],
+		"description": "Deletes a usergroup",
+		"operationId": "deleteUsergroupsUsergroupid",
+		"parameters": [
+		  {
+			"name": "usergroupid",
+			"in": "path",
+			"description": "Identifier of the usergroup",
+			"required": true,
+			"type": "string",
+			"x-example": "1"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/users/": {
+	  "get": {
+		"tags": [
+		  "User"
+		],
+		"description": "Loads a list of user",
+		"operationId": "getUsers",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "birthdate",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field birthdate",
+			"required": false,
+			"type": "string",
+			"x-example": "sample birthdate"
+		  },
+		  {
+			"name": "id_city",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_city",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_city"
+		  },
+		  {
+			"name": "login",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field login",
+			"required": false,
+			"type": "string",
+			"x-example": "sample login"
+		  },
+		  {
+			"name": "email",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field email",
+			"required": false,
+			"type": "string",
+			"x-example": "sample email"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "registration",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field registration",
+			"required": false,
+			"type": "string",
+			"x-example": "sample registration"
+		  },
+		  {
+			"name": "phone_number",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field phone_number",
+			"required": false,
+			"type": "string",
+			"x-example": "sample phone_number"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "password",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field password",
+			"required": false,
+			"type": "string",
+			"x-example": "sample password"
+		  },
+		  {
+			"name": "address",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field address",
+			"required": false,
+			"type": "string",
+			"x-example": "sample address"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "type": "array",
+			  "items": {
+				"$ref": "#/definitions/user"
+			  }
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "post": {
+		"tags": [
+		  "User"
+		],
+		"description": "Adds a user",
+		"operationId": "postUsers",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/user"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/user"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	},
+	"/users/{userid}": {
+	  "get": {
+		"tags": [
+		  "User"
+		],
+		"description": "Loads a user",
+		"operationId": "getUsersUserid",
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "userid",
+			"in": "path",
+			"description": "Identifier of the user",
+			"required": true,
+			"type": "string",
+			"x-example": "sample userid"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/user"
+			}
+		  },
+		  "400": {
+			"description": "Status 400"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "put": {
+		"tags": [
+		  "User"
+		],
+		"description": "Stores a user",
+		"operationId": "putUsersUserid",
+		"consumes": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"produces": [
+		  "application/json",
+		  "application/x-yaml",
+		  "application/xml",
+		  "text/xml"
+		],
+		"parameters": [
+		  {
+			"name": "userid",
+			"in": "path",
+			"description": "Identifier of the user",
+			"required": true,
+			"type": "string",
+			"x-example": "sample userid"
+		  },
+		  {
+			"in": "body",
+			"name": "body",
+			"required": false,
+			"schema": {
+			  "$ref": "#/definitions/user"
+			}
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200",
+			"schema": {
+			  "$ref": "#/definitions/user"
+			}
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  },
+	  "delete": {
+		"tags": [
+		  "User"
+		],
+		"description": "Deletes a user",
+		"operationId": "deleteUsersUserid",
+		"parameters": [
+		  {
+			"name": "userid",
+			"in": "path",
+			"description": "Identifier of the user",
+			"required": true,
+			"type": "string",
+			"x-example": "sample userid"
+		  }
+		],
+		"responses": {
+		  "200": {
+			"description": "Status 200"
+		  }
+		},
+		"security": [
+		  {
+			"HTTP_BASIC": []
+		  }
+		]
+	  }
+	}
+  },
+  "securityDefinitions": {
+	"HTTP_BASIC": {
+	  "type": "basic"
+	}
+  },
+  "definitions": {
+	"author": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"name"
+	  ],
+	  "properties": {
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\"}"
+	},
+	"book": {
+	  "type": "object",
+	  "required": [
+		"call_number",
+		"edition",
+		"id",
+		"id_author",
+		"id_category",
+		"id_publisher",
+		"price_cost",
+		"price_sale",
+		"stock",
+		"title"
+	  ],
+	  "properties": {
+		"abstract": {
+		  "type": "string",
+		  "example": "sample abstract"
+		},
+		"call_number": {
+		  "type": "string",
+		  "example": "sample call_number"
+		},
+		"edition": {
+		  "type": "string",
+		  "example": "sample edition"
+		},
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_author": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_category": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_collection": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_publisher": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"isbn": {
+		  "type": "string",
+		  "example": "sample isbn"
+		},
+		"notes": {
+		  "type": "string",
+		  "example": "sample notes"
+		},
+		"price_cost": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		},
+		"price_sale": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		},
+		"publish_date": {
+		  "type": "integer",
+		  "format": "int64",
+		  "example": 123456789
+		},
+		"publish_place": {
+		  "type": "string",
+		  "example": "sample publish_place"
+		},
+		"stock": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"title": {
+		  "type": "string",
+		  "example": "sample title"
+		},
+		"volume": {
+		  "type": "string",
+		  "example": "sample volume"
+		}
+	  },
+	  "example": "{\"id\":1,\"title\":\"sample title\",\"isbn\":\"sample isbn\",\"price_cost\":1.1,\"price_sale\":1.1,\"stock\":1,\"call_number\":\"sample call_number\",\"edition\":\"sample edition\",\"volume\":\"sample volume\",\"publish_place\":\"sample publish_place\",\"publish_date\":123456789,\"abstract\":\"sample abstract\",\"notes\":\"sample notes\",\"id_publisher\":1,\"id_collection\":1,\"id_author\":1,\"id_category\":1}"
+	},
+	"category": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"name"
+	  ],
+	  "properties": {
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\"}"
+	},
+	"city": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"id_state",
+		"name"
+	  ],
+	  "properties": {
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_state": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\",\"id_state\":1}"
+	},
+	"collection": {
+	  "type": "object",
+	  "required": [
+		"description",
+		"id"
+	  ],
+	  "properties": {
+		"description": {
+		  "type": "string",
+		  "example": "sample description"
+		},
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		}
+	  },
+	  "example": "{\"id\":1,\"description\":\"sample description\"}"
+	},
+	"item_order": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"id_book",
+		"id_order",
+		"price"
+	  ],
+	  "properties": {
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_book": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_order": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"price": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		},
+		"quantity": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		}
+	  },
+	  "example": "{\"id\":1,\"quantity\":1.1,\"price\":1.1,\"id_book\":1,\"id_order\":1}"
+	},
+	"order": {
+	  "type": "object",
+	  "required": [
+		"final_value",
+		"id",
+		"id_user",
+		"order_date"
+	  ],
+	  "properties": {
+		"discount": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		},
+		"final_value": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		},
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_user": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"notes": {
+		  "type": "string",
+		  "example": "sample notes"
+		},
+		"order_date": {
+		  "type": "integer",
+		  "format": "int64",
+		  "example": 123456789
+		},
+		"value": {
+		  "type": "number",
+		  "format": "float",
+		  "example": 1.1
+		}
+	  },
+	  "example": "{\"id\":1,\"id_user\":1,\"order_date\":123456789,\"value\":1.1,\"discount\":1.1,\"final_value\":1.1,\"notes\":\"sample notes\"}"
+	},
+	"publisher": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"name"
+	  ],
+	  "properties": {
+		"email": {
+		  "type": "string",
+		  "example": "sample email"
+		},
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		},
+		"site": {
+		  "type": "string",
+		  "example": "sample site"
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\",\"site\":\"sample site\",\"email\":\"sample email\"}"
+	},
+	"state": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"name",
+		"uf"
+	  ],
+	  "properties": {
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		},
+		"uf": {
+		  "type": "string",
+		  "example": "sample uf"
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\",\"uf\":\"sample uf\"}"
+	},
+	"user": {
+	  "type": "object",
+	  "required": [
+		"birthdate",
+		"email",
+		"id",
+		"id_city",
+		"login",
+		"name",
+		"password",
+		"phone_number"
+	  ],
+	  "properties": {
+		"address": {
+		  "type": "string",
+		  "example": "sample address"
+		},
+		"birthdate": {
+		  "type": "integer",
+		  "format": "int64",
+		  "example": 123456789
+		},
+		"email": {
+		  "type": "string",
+		  "example": "sample email"
+		},
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_city": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"login": {
+		  "type": "string",
+		  "example": "sample login"
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		},
+		"password": {
+		  "type": "string",
+		  "example": "sample password"
+		},
+		"phone_number": {
+		  "type": "string",
+		  "example": "sample phone_number"
+		},
+		"registration": {
+		  "type": "integer",
+		  "format": "int64",
+		  "example": 123456789
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\",\"birthdate\":123456789,\"address\":\"sample address\",\"phone_number\":\"sample phone_number\",\"email\":\"sample email\",\"login\":\"sample login\",\"password\":\"sample password\",\"registration\":123456789,\"id_city\":1}"
+	},
+	"usergroup": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"name"
+	  ],
+	  "properties": {
+		"description": {
+		  "type": "string",
+		  "example": "sample description"
+		},
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"name": {
+		  "type": "string",
+		  "example": "sample name"
+		}
+	  },
+	  "example": "{\"id\":1,\"name\":\"sample name\",\"description\":\"sample description\"}"
+	},
+	"usergroup_map": {
+	  "type": "object",
+	  "required": [
+		"id",
+		"id_group",
+		"id_user"
+	  ],
+	  "properties": {
+		"id": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_group": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		},
+		"id_user": {
+		  "type": "integer",
+		  "format": "int32",
+		  "example": 1
+		}
+	  },
+	  "example": "{\"id\":1,\"id_user\":1,\"id_group\":1}"
+	}
+  }
+}
