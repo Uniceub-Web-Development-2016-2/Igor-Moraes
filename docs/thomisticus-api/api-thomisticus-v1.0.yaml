@@ -7,7 +7,7 @@ info:
     name: Igor Moraes
     email: igor.sgm@gmail.com
 host: localhost:8888
-basePath: /Igor-Moraes/ThomisticusBookstoreSystem
+basePath: /Igor-Moraes/Thomisticus
 tags:
   - name: cities
   - name: collections

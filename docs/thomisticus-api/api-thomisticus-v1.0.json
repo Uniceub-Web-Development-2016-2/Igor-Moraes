@@ -10,7 +10,7 @@
 	}
   },
   "host": "localhost:8888",
-  "basePath": "/Igor-Moraes/ThomisticusBookstoreSystem",
+  "basePath": "/Igor-Moraes/Thomisticus",
   "tags": [
 	{
 	  "name": "cities"
