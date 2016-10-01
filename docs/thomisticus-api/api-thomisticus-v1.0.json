@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
 	"description": "",
-	"version": "1.6.0",
+	"version": "1.6.1",
 	"title": "Thomisticus API",
 	"contact": {
 	  "name": "Igor Moraes",
@@ -10,63 +10,55 @@
 	}
   },
   "host": "localhost:8888",
-  "basePath": "/v1",
+  "basePath": "/Igor-Moraes/ThomisticusBookstoreSystem",
   "tags": [
 	{
-	  "name": "User"
+	  "name": "cities"
 	},
 	{
-	  "name": "City"
+	  "name": "collections"
 	},
 	{
-	  "name": "Collection"
+	  "name": "orders"
 	},
 	{
-	  "name": "Default",
-	  "description": "Default section"
-	},
-	{
-	  "name": "Publisher"
-	},
-	{
-	  "name": "Category"
-	},
-	{
-	  "name": "Order"
-	},
-	{
-	  "name": "Book"
-	},
-	{
-	  "name": "Thomisticus",
-	  "description": "Imported from Thomisticus"
-	},
-	{
-	  "name": "UsergroupMap",
-	  "description": "Relationship between users and usergroups"
-	},
-	{
-	  "name": "State"
-	},
-	{
-	  "name": "Author"
-	},
-	{
-	  "name": "ItemOrder",
+	  "name": "books_orders",
 	  "description": "Relationship between books and orders"
 	},
 	{
-	  "name": "Usergroup"
+	  "name": "states"
+	},
+	{
+	  "name": "users"
+	},
+	{
+	  "name": "categories"
+	},
+	{
+	  "name": "usergroups"
+	},
+	{
+	  "name": "user_usergroup_map",
+	  "description": "Relationship between users and usergroups"
+	},
+	{
+	  "name": "publisher"
+	},
+	{
+	  "name": "authors"
+	},
+	{
+	  "name": "books"
 	}
   ],
   "schemes": [
-	"https"
+	"http"
   ],
   "paths": {
 	"/authors/": {
 	  "get": {
 		"tags": [
-		  "Author"
+		  "authors"
 		],
 		"description": "Loads a list of author",
 		"operationId": "getAuthors",
@@ -78,12 +70,20 @@
 		],
 		"parameters": [
 		  {
-			"name": "$sort",
+			"name": "$size",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "Size of the page to retrieve. Integer value",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $sort"
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
 		  },
 		  {
 			"name": "id",
@@ -102,20 +102,12 @@
 			"x-example": "sample name"
 		  },
 		  {
-			"name": "$page",
+			"name": "$sort",
 			"in": "query",
-			"description": "Number of the page to retrieve. Integer value.",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $page"
-		  },
-		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
+			"x-example": "sample $sort"
 		  }
 		],
 		"responses": {
@@ -131,16 +123,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Author"
+		  "authors"
 		],
 		"description": "Adds a author",
 		"operationId": "postAuthors",
@@ -173,18 +160,13 @@
 			  "$ref": "#/definitions/author"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/authors/{authorid}": {
 	  "get": {
 		"tags": [
-		  "Author"
+		  "authors"
 		],
 		"description": "Loads a author",
 		"operationId": "getAuthorsAuthorid",
@@ -214,16 +196,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Author"
+		  "authors"
 		],
 		"description": "Stores a author",
 		"operationId": "putAuthorsAuthorid",
@@ -264,16 +241,11 @@
 			  "$ref": "#/definitions/author"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Author"
+		  "authors"
 		],
 		"description": "Deletes a author",
 		"operationId": "deleteAuthorsAuthorid",
@@ -291,18 +263,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/books/": {
 	  "get": {
 		"tags": [
-		  "Book"
+		  "books"
 		],
 		"description": "Loads a list of book",
 		"operationId": "getBooks",
@@ -314,12 +281,100 @@
 		],
 		"parameters": [
 		  {
-			"name": "id_collection",
+			"name": "$sort",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id_collection",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
-			"x-example": "sample id_collection"
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "id_publisher",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_publisher",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_publisher"
+		  },
+		  {
+			"name": "notes",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field notes",
+			"required": false,
+			"type": "string",
+			"x-example": "sample notes"
+		  },
+		  {
+			"name": "call_number",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field call_number",
+			"required": false,
+			"type": "string",
+			"x-example": "sample call_number"
+		  },
+		  {
+			"name": "price_sale",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field price_sale",
+			"required": false,
+			"type": "string",
+			"x-example": "sample price_sale"
+		  },
+		  {
+			"name": "volume",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field volume",
+			"required": false,
+			"type": "string",
+			"x-example": "sample volume"
+		  },
+		  {
+			"name": "isbn",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field isbn",
+			"required": false,
+			"type": "string",
+			"x-example": "sample isbn"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "publish_date",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field publish_date",
+			"required": false,
+			"type": "string",
+			"x-example": "sample publish_date"
+		  },
+		  {
+			"name": "stock",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field stock",
+			"required": false,
+			"type": "string",
+			"x-example": "sample stock"
+		  },
+		  {
+			"name": "price_cost",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field price_cost",
+			"required": false,
+			"type": "string",
+			"x-example": "sample price_cost"
 		  },
 		  {
 			"name": "publish_place",
@@ -338,92 +393,12 @@
 			"x-example": "sample edition"
 		  },
 		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
-		  },
-		  {
 			"name": "id_category",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field id_category",
 			"required": false,
 			"type": "string",
 			"x-example": "sample id_category"
-		  },
-		  {
-			"name": "abstract",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field abstract",
-			"required": false,
-			"type": "string",
-			"x-example": "sample abstract"
-		  },
-		  {
-			"name": "id",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id"
-		  },
-		  {
-			"name": "stock",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field stock",
-			"required": false,
-			"type": "string",
-			"x-example": "sample stock"
-		  },
-		  {
-			"name": "price_sale",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field price_sale",
-			"required": false,
-			"type": "string",
-			"x-example": "sample price_sale"
-		  },
-		  {
-			"name": "id_publisher",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id_publisher",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id_publisher"
-		  },
-		  {
-			"name": "call_number",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field call_number",
-			"required": false,
-			"type": "string",
-			"x-example": "sample call_number"
-		  },
-		  {
-			"name": "publish_date",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field publish_date",
-			"required": false,
-			"type": "string",
-			"x-example": "sample publish_date"
-		  },
-		  {
-			"name": "isbn",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field isbn",
-			"required": false,
-			"type": "string",
-			"x-example": "sample isbn"
-		  },
-		  {
-			"name": "$sort",
-			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $sort"
 		  },
 		  {
 			"name": "id_author",
@@ -434,28 +409,20 @@
 			"x-example": "sample id_author"
 		  },
 		  {
-			"name": "notes",
+			"name": "$page",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field notes",
+			"description": "Number of the page to retrieve. Integer value.",
 			"required": false,
 			"type": "string",
-			"x-example": "sample notes"
+			"x-example": "sample $page"
 		  },
 		  {
-			"name": "price_cost",
+			"name": "abstract",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field price_cost",
+			"description": "Allows to filter the collections of result by the value of field abstract",
 			"required": false,
 			"type": "string",
-			"x-example": "sample price_cost"
-		  },
-		  {
-			"name": "volume",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field volume",
-			"required": false,
-			"type": "string",
-			"x-example": "sample volume"
+			"x-example": "sample abstract"
 		  },
 		  {
 			"name": "title",
@@ -466,12 +433,12 @@
 			"x-example": "sample title"
 		  },
 		  {
-			"name": "$page",
+			"name": "id_collection",
 			"in": "query",
-			"description": "Number of the page to retrieve. Integer value.",
+			"description": "Allows to filter the collections of result by the value of field id_collection",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $page"
+			"x-example": "sample id_collection"
 		  }
 		],
 		"responses": {
@@ -487,16 +454,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Book"
+		  "books"
 		],
 		"description": "Adds a book",
 		"operationId": "postBooks",
@@ -529,18 +491,13 @@
 			  "$ref": "#/definitions/book"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/books/{bookid}": {
 	  "get": {
 		"tags": [
-		  "Book"
+		  "books"
 		],
 		"description": "Loads a book",
 		"operationId": "getBooksBookid",
@@ -570,16 +527,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Book"
+		  "books"
 		],
 		"description": "Stores a book",
 		"operationId": "putBooksBookid",
@@ -620,16 +572,11 @@
 			  "$ref": "#/definitions/book"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Book"
+		  "books"
 		],
 		"description": "Deletes a book",
 		"operationId": "deleteBooksBookid",
@@ -647,18 +594,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/categories/": {
 	  "get": {
 		"tags": [
-		  "Category"
+		  "categories"
 		],
 		"description": "Loads a list of category",
 		"operationId": "getCategories",
@@ -670,20 +612,12 @@
 		],
 		"parameters": [
 		  {
-			"name": "$page",
+			"name": "$sort",
 			"in": "query",
-			"description": "Number of the page to retrieve. Integer value.",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $page"
-		  },
-		  {
-			"name": "name",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field name",
-			"required": false,
-			"type": "string",
-			"x-example": "sample name"
+			"x-example": "sample $sort"
 		  },
 		  {
 			"name": "id",
@@ -694,12 +628,20 @@
 			"x-example": "sample id"
 		  },
 		  {
-			"name": "$sort",
+			"name": "name",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "Allows to filter the collections of result by the value of field name",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $sort"
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
 		  },
 		  {
 			"name": "$size",
@@ -723,16 +665,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Category"
+		  "categories"
 		],
 		"description": "Adds a category",
 		"operationId": "postCategories",
@@ -765,18 +702,13 @@
 			  "$ref": "#/definitions/category"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/categories/{categoryid}": {
 	  "get": {
 		"tags": [
-		  "Category"
+		  "categories"
 		],
 		"description": "Loads a category",
 		"operationId": "getCategoriesCategoryid",
@@ -806,16 +738,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Category"
+		  "categories"
 		],
 		"description": "Stores a category",
 		"operationId": "putCategoriesCategoryid",
@@ -856,16 +783,11 @@
 			  "$ref": "#/definitions/category"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Category"
+		  "categories"
 		],
 		"description": "Deletes a category",
 		"operationId": "deleteCategoriesCategoryid",
@@ -883,18 +805,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/cities/": {
 	  "get": {
 		"tags": [
-		  "City"
+		  "cities"
 		],
 		"description": "Loads a list of city",
 		"operationId": "getCities",
@@ -905,6 +822,22 @@
 		  "text/xml"
 		],
 		"parameters": [
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
 		  {
 			"name": "$page",
 			"in": "query",
@@ -922,14 +855,6 @@
 			"x-example": "sample $size"
 		  },
 		  {
-			"name": "name",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field name",
-			"required": false,
-			"type": "string",
-			"x-example": "sample name"
-		  },
-		  {
 			"name": "id_state",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field id_state",
@@ -938,20 +863,12 @@
 			"x-example": "sample id_state"
 		  },
 		  {
-			"name": "id",
+			"name": "name",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id",
+			"description": "Allows to filter the collections of result by the value of field name",
 			"required": false,
 			"type": "string",
-			"x-example": "sample id"
-		  },
-		  {
-			"name": "$sort",
-			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $sort"
+			"x-example": "sample name"
 		  }
 		],
 		"responses": {
@@ -967,16 +884,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "City"
+		  "cities"
 		],
 		"description": "Adds a city",
 		"operationId": "postCities",
@@ -1009,18 +921,13 @@
 			  "$ref": "#/definitions/city"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/cities/{cityid}": {
 	  "get": {
 		"tags": [
-		  "City"
+		  "cities"
 		],
 		"description": "Loads a city",
 		"operationId": "getCitiesCityid",
@@ -1050,16 +957,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "City"
+		  "cities"
 		],
 		"description": "Stores a city",
 		"operationId": "putCitiesCityid",
@@ -1100,16 +1002,11 @@
 			  "$ref": "#/definitions/city"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "City"
+		  "cities"
 		],
 		"description": "Deletes a city",
 		"operationId": "deleteCitiesCityid",
@@ -1127,18 +1024,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/collections/": {
 	  "get": {
 		"tags": [
-		  "Collection"
+		  "collections"
 		],
 		"description": "Loads a list of collection",
 		"operationId": "getCollections",
@@ -1152,7 +1044,7 @@
 		  {
 			"name": "$sort",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
 			"x-example": "sample $sort"
@@ -1164,14 +1056,6 @@
 			"required": false,
 			"type": "string",
 			"x-example": "sample description"
-		  },
-		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
 		  },
 		  {
 			"name": "id",
@@ -1188,6 +1072,14 @@
 			"required": false,
 			"type": "string",
 			"x-example": "sample $page"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
 		  }
 		],
 		"responses": {
@@ -1203,16 +1095,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Collection"
+		  "collections"
 		],
 		"description": "Adds a collection",
 		"operationId": "postCollections",
@@ -1245,18 +1132,13 @@
 			  "$ref": "#/definitions/collection"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/collections/{collectionid}": {
 	  "get": {
 		"tags": [
-		  "Collection"
+		  "collections"
 		],
 		"description": "Loads a collection",
 		"operationId": "getCollectionsCollectionid",
@@ -1286,16 +1168,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Collection"
+		  "collections"
 		],
 		"description": "Stores a collection",
 		"operationId": "putCollectionsCollectionid",
@@ -1336,16 +1213,11 @@
 			  "$ref": "#/definitions/collection"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Collection"
+		  "collections"
 		],
 		"description": "Deletes a collection",
 		"operationId": "deleteCollectionsCollectionid",
@@ -1363,20 +1235,15 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/itemOrders/": {
 	  "get": {
 		"tags": [
-		  "ItemOrder"
+		  "books_orders"
 		],
-		"description": "Loads a list of item_order",
+		"description": "Loads a list of books_orders",
 		"operationId": "getItemOrders",
 		"produces": [
 		  "application/json",
@@ -1385,6 +1252,46 @@
 		  "text/xml"
 		],
 		"parameters": [
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "price",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field price",
+			"required": false,
+			"type": "string",
+			"x-example": "sample price"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "id_book",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_book",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_book"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
 		  {
 			"name": "id_order",
 			"in": "query",
@@ -1402,52 +1309,12 @@
 			"x-example": "sample $page"
 		  },
 		  {
-			"name": "price",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field price",
-			"required": false,
-			"type": "string",
-			"x-example": "sample price"
-		  },
-		  {
-			"name": "id_book",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id_book",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id_book"
-		  },
-		  {
-			"name": "$sort",
-			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $sort"
-		  },
-		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
-		  },
-		  {
 			"name": "quantity",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field quantity",
 			"required": false,
 			"type": "string",
 			"x-example": "sample quantity"
-		  },
-		  {
-			"name": "id",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id"
 		  }
 		],
 		"responses": {
@@ -1456,25 +1323,20 @@
 			"schema": {
 			  "type": "array",
 			  "items": {
-				"$ref": "#/definitions/item_order"
+				"$ref": "#/definitions/books_orders"
 			  }
 			}
 		  },
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "ItemOrder"
+		  "books_orders"
 		],
-		"description": "Adds a item_order",
+		"description": "Adds a books_orders",
 		"operationId": "postItemOrders",
 		"consumes": [
 		  "application/json",
@@ -1494,7 +1356,7 @@
 			"name": "body",
 			"required": false,
 			"schema": {
-			  "$ref": "#/definitions/item_order"
+			  "$ref": "#/definitions/books_orders"
 			}
 		  }
 		],
@@ -1502,23 +1364,18 @@
 		  "200": {
 			"description": "Status 200",
 			"schema": {
-			  "$ref": "#/definitions/item_order"
+			  "$ref": "#/definitions/books_orders"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/itemOrders/{item_orderid}": {
 	  "get": {
 		"tags": [
-		  "ItemOrder"
+		  "books_orders"
 		],
-		"description": "Loads a item_order",
+		"description": "Loads a books_orders",
 		"operationId": "getItemOrdersItem_orderid",
 		"produces": [
 		  "application/json",
@@ -1530,7 +1387,7 @@
 		  {
 			"name": "item_orderid",
 			"in": "path",
-			"description": "Identifier of the item_order",
+			"description": "Identifier of the books_orders",
 			"required": true,
 			"type": "string",
 			"x-example": "1"
@@ -1540,24 +1397,19 @@
 		  "200": {
 			"description": "Status 200",
 			"schema": {
-			  "$ref": "#/definitions/item_order"
+			  "$ref": "#/definitions/books_orders"
 			}
 		  },
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "ItemOrder"
+		  "books_orders"
 		],
-		"description": "Stores a item_order",
+		"description": "Stores a books_orders",
 		"operationId": "putItemOrdersItem_orderid",
 		"consumes": [
 		  "application/json",
@@ -1575,7 +1427,7 @@
 		  {
 			"name": "item_orderid",
 			"in": "path",
-			"description": "Identifier of the item_order",
+			"description": "Identifier of the books_orders",
 			"required": true,
 			"type": "string",
 			"x-example": "1"
@@ -1585,7 +1437,7 @@
 			"name": "body",
 			"required": false,
 			"schema": {
-			  "$ref": "#/definitions/item_order"
+			  "$ref": "#/definitions/books_orders"
 			}
 		  }
 		],
@@ -1593,27 +1445,22 @@
 		  "200": {
 			"description": "Status 200",
 			"schema": {
-			  "$ref": "#/definitions/item_order"
+			  "$ref": "#/definitions/books_orders"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "ItemOrder"
+		  "books_orders"
 		],
-		"description": "Deletes a item_order",
+		"description": "Deletes a books_orders",
 		"operationId": "deleteItemOrdersItem_orderid",
 		"parameters": [
 		  {
 			"name": "item_orderid",
 			"in": "path",
-			"description": "Identifier of the item_order",
+			"description": "Identifier of the books_orders",
 			"required": true,
 			"type": "string",
 			"x-example": "1"
@@ -1623,18 +1470,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/orders/": {
 	  "get": {
 		"tags": [
-		  "Order"
+		  "orders"
 		],
 		"description": "Loads a list of order",
 		"operationId": "getOrders",
@@ -1646,12 +1488,28 @@
 		],
 		"parameters": [
 		  {
-			"name": "order_date",
+			"name": "$size",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field order_date",
+			"description": "Size of the page to retrieve. Integer value",
 			"required": false,
 			"type": "string",
-			"x-example": "sample order_date"
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "id_user",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_user",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_user"
+		  },
+		  {
+			"name": "discount",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field discount",
+			"required": false,
+			"type": "string",
+			"x-example": "sample discount"
 		  },
 		  {
 			"name": "$page",
@@ -1670,36 +1528,28 @@
 			"x-example": "sample id"
 		  },
 		  {
-			"name": "discount",
+			"name": "value",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field discount",
+			"description": "Allows to filter the collections of result by the value of field value",
 			"required": false,
 			"type": "string",
-			"x-example": "sample discount"
+			"x-example": "sample value"
 		  },
 		  {
 			"name": "$sort",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
 			"x-example": "sample $sort"
 		  },
 		  {
-			"name": "id_user",
+			"name": "order_date",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id_user",
+			"description": "Allows to filter the collections of result by the value of field order_date",
 			"required": false,
 			"type": "string",
-			"x-example": "sample id_user"
-		  },
-		  {
-			"name": "notes",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field notes",
-			"required": false,
-			"type": "string",
-			"x-example": "sample notes"
+			"x-example": "sample order_date"
 		  },
 		  {
 			"name": "final_value",
@@ -1710,20 +1560,12 @@
 			"x-example": "sample final_value"
 		  },
 		  {
-			"name": "value",
+			"name": "notes",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field value",
+			"description": "Allows to filter the collections of result by the value of field notes",
 			"required": false,
 			"type": "string",
-			"x-example": "sample value"
-		  },
-		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
+			"x-example": "sample notes"
 		  }
 		],
 		"responses": {
@@ -1739,16 +1581,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Order"
+		  "orders"
 		],
 		"description": "Adds a order",
 		"operationId": "postOrders",
@@ -1781,18 +1618,13 @@
 			  "$ref": "#/definitions/order"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/orders/{orderid}": {
 	  "get": {
 		"tags": [
-		  "Order"
+		  "orders"
 		],
 		"description": "Loads a order",
 		"operationId": "getOrdersOrderid",
@@ -1822,16 +1654,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Order"
+		  "orders"
 		],
 		"description": "Stores a order",
 		"operationId": "putOrdersOrderid",
@@ -1872,16 +1699,11 @@
 			  "$ref": "#/definitions/order"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Order"
+		  "orders"
 		],
 		"description": "Deletes a order",
 		"operationId": "deleteOrdersOrderid",
@@ -1899,18 +1721,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/publishers/": {
 	  "get": {
 		"tags": [
-		  "Publisher"
+		  "publisher"
 		],
 		"description": "Loads a list of publisher",
 		"operationId": "getPublishers",
@@ -1922,6 +1739,14 @@
 		],
 		"parameters": [
 		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
 			"name": "name",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field name",
@@ -1930,20 +1755,12 @@
 			"x-example": "sample name"
 		  },
 		  {
-			"name": "email",
+			"name": "id",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field email",
+			"description": "Allows to filter the collections of result by the value of field id",
 			"required": false,
 			"type": "string",
-			"x-example": "sample email"
-		  },
-		  {
-			"name": "$page",
-			"in": "query",
-			"description": "Number of the page to retrieve. Integer value.",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $page"
+			"x-example": "sample id"
 		  },
 		  {
 			"name": "site",
@@ -1954,6 +1771,14 @@
 			"x-example": "sample site"
 		  },
 		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
 			"name": "$size",
 			"in": "query",
 			"description": "Size of the page to retrieve. Integer value",
@@ -1962,20 +1787,12 @@
 			"x-example": "sample $size"
 		  },
 		  {
-			"name": "$sort",
+			"name": "email",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "Allows to filter the collections of result by the value of field email",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $sort"
-		  },
-		  {
-			"name": "id",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id"
+			"x-example": "sample email"
 		  }
 		],
 		"responses": {
@@ -1991,16 +1808,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Publisher"
+		  "publisher"
 		],
 		"description": "Adds a publisher",
 		"operationId": "postPublishers",
@@ -2033,18 +1845,13 @@
 			  "$ref": "#/definitions/publisher"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/publishers/{publisherid}": {
 	  "get": {
 		"tags": [
-		  "Publisher"
+		  "publisher"
 		],
 		"description": "Loads a publisher",
 		"operationId": "getPublishersPublisherid",
@@ -2074,16 +1881,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Publisher"
+		  "publisher"
 		],
 		"description": "Stores a publisher",
 		"operationId": "putPublishersPublisherid",
@@ -2124,16 +1926,11 @@
 			  "$ref": "#/definitions/publisher"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Publisher"
+		  "publisher"
 		],
 		"description": "Deletes a publisher",
 		"operationId": "deletePublishersPublisherid",
@@ -2151,18 +1948,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/states/": {
 	  "get": {
 		"tags": [
-		  "State"
+		  "states"
 		],
 		"description": "Loads a list of state",
 		"operationId": "getStates",
@@ -2174,9 +1966,17 @@
 		],
 		"parameters": [
 		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
 			"name": "$sort",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
 			"x-example": "sample $sort"
@@ -2190,20 +1990,12 @@
 			"x-example": "sample uf"
 		  },
 		  {
-			"name": "$size",
+			"name": "$page",
 			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
+			"description": "Number of the page to retrieve. Integer value.",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $size"
-		  },
-		  {
-			"name": "name",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field name",
-			"required": false,
-			"type": "string",
-			"x-example": "sample name"
+			"x-example": "sample $page"
 		  },
 		  {
 			"name": "id",
@@ -2214,12 +2006,12 @@
 			"x-example": "sample id"
 		  },
 		  {
-			"name": "$page",
+			"name": "name",
 			"in": "query",
-			"description": "Number of the page to retrieve. Integer value.",
+			"description": "Allows to filter the collections of result by the value of field name",
 			"required": false,
 			"type": "string",
-			"x-example": "sample $page"
+			"x-example": "sample name"
 		  }
 		],
 		"responses": {
@@ -2235,16 +2027,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "State"
+		  "states"
 		],
 		"description": "Adds a state",
 		"operationId": "postStates",
@@ -2277,18 +2064,13 @@
 			  "$ref": "#/definitions/state"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/states/{stateid}": {
 	  "get": {
 		"tags": [
-		  "State"
+		  "states"
 		],
 		"description": "Loads a state",
 		"operationId": "getStatesStateid",
@@ -2318,16 +2100,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "State"
+		  "states"
 		],
 		"description": "Stores a state",
 		"operationId": "putStatesStateid",
@@ -2368,16 +2145,11 @@
 			  "$ref": "#/definitions/state"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "State"
+		  "states"
 		],
 		"description": "Deletes a state",
 		"operationId": "deleteStatesStateid",
@@ -2395,18 +2167,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
-	"/usergroupMaps/": {
+	"/user_usergroup_map/": {
 	  "get": {
 		"tags": [
-		  "UsergroupMap"
+		  "user_usergroup_map"
 		],
 		"description": "Loads a list of usergroup_map",
 		"operationId": "getUsergroupMaps",
@@ -2418,22 +2185,6 @@
 		],
 		"parameters": [
 		  {
-			"name": "id_group",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id_group",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id_group"
-		  },
-		  {
-			"name": "id_user",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id_user",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id_user"
-		  },
-		  {
 			"name": "id",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field id",
@@ -2444,10 +2195,18 @@
 		  {
 			"name": "$sort",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
 			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "id_group",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_group",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_group"
 		  },
 		  {
 			"name": "$size",
@@ -2456,6 +2215,14 @@
 			"required": false,
 			"type": "string",
 			"x-example": "sample $size"
+		  },
+		  {
+			"name": "id_user",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id_user",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id_user"
 		  },
 		  {
 			"name": "$page",
@@ -2479,16 +2246,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "UsergroupMap"
+		  "user_usergroup_map"
 		],
 		"description": "Adds a usergroup_map",
 		"operationId": "postUsergroupMaps",
@@ -2521,18 +2283,13 @@
 			  "$ref": "#/definitions/usergroup_map"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
-	"/usergroupMaps/{usergroup_mapid}": {
+	"/user_usergroup_map/{usergroup_mapid}": {
 	  "get": {
 		"tags": [
-		  "UsergroupMap"
+		  "user_usergroup_map"
 		],
 		"description": "Loads a usergroup_map",
 		"operationId": "getUsergroupMapsUsergroup_mapid",
@@ -2562,16 +2319,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "UsergroupMap"
+		  "user_usergroup_map"
 		],
 		"description": "Stores a usergroup_map",
 		"operationId": "putUsergroupMapsUsergroup_mapid",
@@ -2612,16 +2364,11 @@
 			  "$ref": "#/definitions/usergroup_map"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "UsergroupMap"
+		  "user_usergroup_map"
 		],
 		"description": "Deletes a usergroup_map",
 		"operationId": "deleteUsergroupMapsUsergroup_mapid",
@@ -2639,18 +2386,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/usergroups/": {
 	  "get": {
 		"tags": [
-		  "Usergroup"
+		  "usergroups"
 		],
 		"description": "Loads a list of usergroup",
 		"operationId": "getUsergroups",
@@ -2662,28 +2404,20 @@
 		],
 		"parameters": [
 		  {
+			"name": "description",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field description",
+			"required": false,
+			"type": "string",
+			"x-example": "sample description"
+		  },
+		  {
 			"name": "$sort",
 			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
 			"required": false,
 			"type": "string",
 			"x-example": "sample $sort"
-		  },
-		  {
-			"name": "id",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id"
-		  },
-		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
 		  },
 		  {
 			"name": "$page",
@@ -2694,12 +2428,20 @@
 			"x-example": "sample $page"
 		  },
 		  {
-			"name": "description",
+			"name": "$size",
 			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field description",
+			"description": "Size of the page to retrieve. Integer value",
 			"required": false,
 			"type": "string",
-			"x-example": "sample description"
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
 		  },
 		  {
 			"name": "name",
@@ -2723,16 +2465,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "Usergroup"
+		  "usergroups"
 		],
 		"description": "Adds a usergroup",
 		"operationId": "postUsergroups",
@@ -2765,18 +2502,13 @@
 			  "$ref": "#/definitions/usergroup"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/usergroups/{usergroupid}": {
 	  "get": {
 		"tags": [
-		  "Usergroup"
+		  "usergroups"
 		],
 		"description": "Loads a usergroup",
 		"operationId": "getUsergroupsUsergroupid",
@@ -2806,16 +2538,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "Usergroup"
+		  "usergroups"
 		],
 		"description": "Stores a usergroup",
 		"operationId": "putUsergroupsUsergroupid",
@@ -2856,16 +2583,11 @@
 			  "$ref": "#/definitions/usergroup"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "Usergroup"
+		  "usergroups"
 		],
 		"description": "Deletes a usergroup",
 		"operationId": "deleteUsergroupsUsergroupid",
@@ -2883,18 +2605,13 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/users/": {
 	  "get": {
 		"tags": [
-		  "User"
+		  "users"
 		],
 		"description": "Loads a list of user",
 		"operationId": "getUsers",
@@ -2906,36 +2623,20 @@
 		],
 		"parameters": [
 		  {
-			"name": "id",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field id",
-			"required": false,
-			"type": "string",
-			"x-example": "sample id"
-		  },
-		  {
-			"name": "$sort",
-			"in": "query",
-			"description": "Order in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $sort"
-		  },
-		  {
-			"name": "birthdate",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field birthdate",
-			"required": false,
-			"type": "string",
-			"x-example": "sample birthdate"
-		  },
-		  {
 			"name": "id_city",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field id_city",
 			"required": false,
 			"type": "string",
 			"x-example": "sample id_city"
+		  },
+		  {
+			"name": "phone_number",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field phone_number",
+			"required": false,
+			"type": "string",
+			"x-example": "sample phone_number"
 		  },
 		  {
 			"name": "login",
@@ -2954,46 +2655,6 @@
 			"x-example": "sample email"
 		  },
 		  {
-			"name": "$page",
-			"in": "query",
-			"description": "Number of the page to retrieve. Integer value.",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $page"
-		  },
-		  {
-			"name": "$size",
-			"in": "query",
-			"description": "Size of the page to retrieve. Integer value",
-			"required": false,
-			"type": "string",
-			"x-example": "sample $size"
-		  },
-		  {
-			"name": "registration",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field registration",
-			"required": false,
-			"type": "string",
-			"x-example": "sample registration"
-		  },
-		  {
-			"name": "phone_number",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field phone_number",
-			"required": false,
-			"type": "string",
-			"x-example": "sample phone_number"
-		  },
-		  {
-			"name": "name",
-			"in": "query",
-			"description": "Allows to filter the collections of result by the value of field name",
-			"required": false,
-			"type": "string",
-			"x-example": "sample name"
-		  },
-		  {
 			"name": "password",
 			"in": "query",
 			"description": "Allows to filter the collections of result by the value of field password",
@@ -3008,6 +2669,62 @@
 			"required": false,
 			"type": "string",
 			"x-example": "sample address"
+		  },
+		  {
+			"name": "$size",
+			"in": "query",
+			"description": "Size of the page to retrieve. Integer value",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $size"
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field name",
+			"required": false,
+			"type": "string",
+			"x-example": "sample name"
+		  },
+		  {
+			"name": "id",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field id",
+			"required": false,
+			"type": "string",
+			"x-example": "sample id"
+		  },
+		  {
+			"name": "$page",
+			"in": "query",
+			"description": "Number of the page to retrieve. Integer value.",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $page"
+		  },
+		  {
+			"name": "$sort",
+			"in": "query",
+			"description": "orders in which to retrieve the results. Multiple sort criteria can be passed. Example: sort=age ASC,height DESC",
+			"required": false,
+			"type": "string",
+			"x-example": "sample $sort"
+		  },
+		  {
+			"name": "registration",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field registration",
+			"required": false,
+			"type": "string",
+			"x-example": "sample registration"
+		  },
+		  {
+			"name": "birthdate",
+			"in": "query",
+			"description": "Allows to filter the collections of result by the value of field birthdate",
+			"required": false,
+			"type": "string",
+			"x-example": "sample birthdate"
 		  }
 		],
 		"responses": {
@@ -3023,16 +2740,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "post": {
 		"tags": [
-		  "User"
+		  "users"
 		],
 		"description": "Adds a user",
 		"operationId": "postUsers",
@@ -3065,18 +2777,13 @@
 			  "$ref": "#/definitions/user"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
 	},
 	"/users/{userid}": {
 	  "get": {
 		"tags": [
-		  "User"
+		  "users"
 		],
 		"description": "Loads a user",
 		"operationId": "getUsersUserid",
@@ -3106,16 +2813,11 @@
 		  "400": {
 			"description": "Status 400"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "put": {
 		"tags": [
-		  "User"
+		  "users"
 		],
 		"description": "Stores a user",
 		"operationId": "putUsersUserid",
@@ -3156,16 +2858,11 @@
 			  "$ref": "#/definitions/user"
 			}
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  },
 	  "delete": {
 		"tags": [
-		  "User"
+		  "users"
 		],
 		"description": "Deletes a user",
 		"operationId": "deleteUsersUserid",
@@ -3183,18 +2880,8 @@
 		  "200": {
 			"description": "Status 200"
 		  }
-		},
-		"security": [
-		  {
-			"HTTP_BASIC": []
-		  }
-		]
+		}
 	  }
-	}
-  },
-  "securityDefinitions": {
-	"HTTP_BASIC": {
-	  "type": "basic"
 	}
   },
   "definitions": {
@@ -3375,7 +3062,7 @@
 	  },
 	  "example": "{\"id\":1,\"description\":\"sample description\"}"
 	},
-	"item_order": {
+	"books_orders": {
 	  "type": "object",
 	  "required": [
 		"id",

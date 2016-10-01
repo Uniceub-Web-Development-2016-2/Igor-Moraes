@@ -1,39 +1,35 @@
 swagger: '2.0'
 info:
   description: ''
-  version: 1.6.0
+  version: 1.6.1
   title: Thomisticus API
   contact:
     name: Igor Moraes
     email: igor.sgm@gmail.com
 host: localhost:8888
-basePath: /api-thomisticus
+basePath: /Igor-Moraes/ThomisticusBookstoreSystem
 tags:
-  - name: City
-  - name: Collection
-  - name: Thomisticus
-    description: Imported from Thomisticus
-  - name: Default
-    description: Default section
-  - name: Order
-  - name: ItemOrder
+  - name: cities
+  - name: collections
+  - name: orders
+  - name: books_orders
     description: Relationship between books and orders
-  - name: State
-  - name: User
-  - name: Category
-  - name: Usergroup
-  - name: UsergroupMap
+  - name: states
+  - name: users
+  - name: categories
+  - name: usergroups
+  - name: user_usergroup_map
     description: Relationship between users and usergroups
-  - name: Publisher
-  - name: Author
-  - name: Book
+  - name: publisher
+  - name: authors
+  - name: books
 schemes:
-  - https
+  - http
 paths:
   /authors/:
     get:
       tags:
-        - Author
+        - authors
       description: Loads a list of author
       operationId: getAuthors
       produces:
@@ -71,7 +67,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -85,11 +81,9 @@ paths:
               $ref: '#/definitions/author'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Author
+        - authors
       description: Adds a author
       operationId: postAuthors
       consumes:
@@ -113,12 +107,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/author'
-      security:
-        - HTTP_BASIC: []
   '/authors/{authorid}':
     get:
       tags:
-        - Author
+        - authors
       description: Loads a author
       operationId: getAuthorsAuthorid
       produces:
@@ -140,11 +132,9 @@ paths:
             $ref: '#/definitions/author'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Author
+        - authors
       description: Stores a author
       operationId: putAuthorsAuthorid
       consumes:
@@ -174,11 +164,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/author'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Author
+        - authors
       description: Deletes a author
       operationId: deleteAuthorsAuthorid
       parameters:
@@ -191,12 +179,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /books/:
     get:
       tags:
-        - Book
+        - books
       description: Loads a list of book
       operationId: getBooks
       produces:
@@ -208,7 +194,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -368,11 +354,9 @@ paths:
               $ref: '#/definitions/book'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Book
+        - books
       description: Adds a book
       operationId: postBooks
       consumes:
@@ -396,12 +380,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/book'
-      security:
-        - HTTP_BASIC: []
   '/books/{bookid}':
     get:
       tags:
-        - Book
+        - books
       description: Loads a book
       operationId: getBooksBookid
       produces:
@@ -423,11 +405,9 @@ paths:
             $ref: '#/definitions/book'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Book
+        - books
       description: Stores a book
       operationId: putBooksBookid
       consumes:
@@ -457,11 +437,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/book'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Book
+        - books
       description: Deletes a book
       operationId: deleteBooksBookid
       parameters:
@@ -474,12 +452,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /categories/:
     get:
       tags:
-        - Category
+        - categories
       description: Loads a list of category
       operationId: getCategories
       produces:
@@ -491,7 +467,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -531,11 +507,9 @@ paths:
               $ref: '#/definitions/category'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Category
+        - categories
       description: Adds a category
       operationId: postCategories
       consumes:
@@ -559,12 +533,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/category'
-      security:
-        - HTTP_BASIC: []
   '/categories/{categoryid}':
     get:
       tags:
-        - Category
+        - categories
       description: Loads a category
       operationId: getCategoriesCategoryid
       produces:
@@ -586,11 +558,9 @@ paths:
             $ref: '#/definitions/category'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Category
+        - categories
       description: Stores a category
       operationId: putCategoriesCategoryid
       consumes:
@@ -620,11 +590,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/category'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Category
+        - categories
       description: Deletes a category
       operationId: deleteCategoriesCategoryid
       parameters:
@@ -637,12 +605,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /cities/:
     get:
       tags:
-        - City
+        - cities
       description: Loads a list of city
       operationId: getCities
       produces:
@@ -654,7 +620,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -702,11 +668,9 @@ paths:
               $ref: '#/definitions/city'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - City
+        - cities
       description: Adds a city
       operationId: postCities
       consumes:
@@ -730,12 +694,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/city'
-      security:
-        - HTTP_BASIC: []
   '/cities/{cityid}':
     get:
       tags:
-        - City
+        - cities
       description: Loads a city
       operationId: getCitiesCityid
       produces:
@@ -757,11 +719,9 @@ paths:
             $ref: '#/definitions/city'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - City
+        - cities
       description: Stores a city
       operationId: putCitiesCityid
       consumes:
@@ -791,11 +751,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/city'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - City
+        - cities
       description: Deletes a city
       operationId: deleteCitiesCityid
       parameters:
@@ -808,12 +766,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /collections/:
     get:
       tags:
-        - Collection
+        - collections
       description: Loads a list of collection
       operationId: getCollections
       produces:
@@ -825,7 +781,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -865,11 +821,9 @@ paths:
               $ref: '#/definitions/collection'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Collection
+        - collections
       description: Adds a collection
       operationId: postCollections
       consumes:
@@ -893,12 +847,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/collection'
-      security:
-        - HTTP_BASIC: []
   '/collections/{collectionid}':
     get:
       tags:
-        - Collection
+        - collections
       description: Loads a collection
       operationId: getCollectionsCollectionid
       produces:
@@ -920,11 +872,9 @@ paths:
             $ref: '#/definitions/collection'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Collection
+        - collections
       description: Stores a collection
       operationId: putCollectionsCollectionid
       consumes:
@@ -954,11 +904,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/collection'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Collection
+        - collections
       description: Deletes a collection
       operationId: deleteCollectionsCollectionid
       parameters:
@@ -971,13 +919,11 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /itemOrders/:
     get:
       tags:
-        - ItemOrder
-      description: Loads a list of item_order
+        - books_orders
+      description: Loads a list of books_orders
       operationId: getItemOrders
       produces:
         - application/json
@@ -988,7 +934,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -1049,15 +995,13 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/item_order'
+              $ref: '#/definitions/books_orders'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - ItemOrder
-      description: Adds a item_order
+        - books_orders
+      description: Adds a books_orders
       operationId: postItemOrders
       consumes:
         - application/json
@@ -1074,19 +1018,17 @@ paths:
           name: body
           required: false
           schema:
-            $ref: '#/definitions/item_order'
+            $ref: '#/definitions/books_orders'
       responses:
         '200':
           description: Status 200
           schema:
-            $ref: '#/definitions/item_order'
-      security:
-        - HTTP_BASIC: []
+            $ref: '#/definitions/books_orders'
   '/itemOrders/{item_orderid}':
     get:
       tags:
-        - ItemOrder
-      description: Loads a item_order
+        - books_orders
+      description: Loads a books_orders
       operationId: getItemOrdersItem_orderid
       produces:
         - application/json
@@ -1096,7 +1038,7 @@ paths:
       parameters:
         - name: item_orderid
           in: path
-          description: Identifier of the item_order
+          description: Identifier of the books_orders
           required: true
           type: string
           x-example: '1'
@@ -1104,15 +1046,13 @@ paths:
         '200':
           description: Status 200
           schema:
-            $ref: '#/definitions/item_order'
+            $ref: '#/definitions/books_orders'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - ItemOrder
-      description: Stores a item_order
+        - books_orders
+      description: Stores a books_orders
       operationId: putItemOrdersItem_orderid
       consumes:
         - application/json
@@ -1127,7 +1067,7 @@ paths:
       parameters:
         - name: item_orderid
           in: path
-          description: Identifier of the item_order
+          description: Identifier of the books_orders
           required: true
           type: string
           x-example: '1'
@@ -1135,35 +1075,31 @@ paths:
           name: body
           required: false
           schema:
-            $ref: '#/definitions/item_order'
+            $ref: '#/definitions/books_orders'
       responses:
         '200':
           description: Status 200
           schema:
-            $ref: '#/definitions/item_order'
-      security:
-        - HTTP_BASIC: []
+            $ref: '#/definitions/books_orders'
     delete:
       tags:
-        - ItemOrder
-      description: Deletes a item_order
+        - books_orders
+      description: Deletes a books_orders
       operationId: deleteItemOrdersItem_orderid
       parameters:
         - name: item_orderid
           in: path
-          description: Identifier of the item_order
+          description: Identifier of the books_orders
           required: true
           type: string
           x-example: '1'
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /orders/:
     get:
       tags:
-        - Order
+        - orders
       description: Loads a list of order
       operationId: getOrders
       produces:
@@ -1217,7 +1153,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -1255,11 +1191,9 @@ paths:
               $ref: '#/definitions/order'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Order
+        - orders
       description: Adds a order
       operationId: postOrders
       consumes:
@@ -1283,12 +1217,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/order'
-      security:
-        - HTTP_BASIC: []
   '/orders/{orderid}':
     get:
       tags:
-        - Order
+        - orders
       description: Loads a order
       operationId: getOrdersOrderid
       produces:
@@ -1310,11 +1242,9 @@ paths:
             $ref: '#/definitions/order'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Order
+        - orders
       description: Stores a order
       operationId: putOrdersOrderid
       consumes:
@@ -1344,11 +1274,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/order'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Order
+        - orders
       description: Deletes a order
       operationId: deleteOrdersOrderid
       parameters:
@@ -1361,12 +1289,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /publishers/:
     get:
       tags:
-        - Publisher
+        - publisher
       description: Loads a list of publisher
       operationId: getPublishers
       produces:
@@ -1378,7 +1304,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -1434,11 +1360,9 @@ paths:
               $ref: '#/definitions/publisher'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Publisher
+        - publisher
       description: Adds a publisher
       operationId: postPublishers
       consumes:
@@ -1462,12 +1386,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/publisher'
-      security:
-        - HTTP_BASIC: []
   '/publishers/{publisherid}':
     get:
       tags:
-        - Publisher
+        - publisher
       description: Loads a publisher
       operationId: getPublishersPublisherid
       produces:
@@ -1489,11 +1411,9 @@ paths:
             $ref: '#/definitions/publisher'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Publisher
+        - publisher
       description: Stores a publisher
       operationId: putPublishersPublisherid
       consumes:
@@ -1523,11 +1443,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/publisher'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Publisher
+        - publisher
       description: Deletes a publisher
       operationId: deletePublishersPublisherid
       parameters:
@@ -1540,12 +1458,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /states/:
     get:
       tags:
-        - State
+        - states
       description: Loads a list of state
       operationId: getStates
       produces:
@@ -1563,7 +1479,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -1603,11 +1519,9 @@ paths:
               $ref: '#/definitions/state'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - State
+        - states
       description: Adds a state
       operationId: postStates
       consumes:
@@ -1631,12 +1545,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/state'
-      security:
-        - HTTP_BASIC: []
   '/states/{stateid}':
     get:
       tags:
-        - State
+        - states
       description: Loads a state
       operationId: getStatesStateid
       produces:
@@ -1658,11 +1570,9 @@ paths:
             $ref: '#/definitions/state'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - State
+        - states
       description: Stores a state
       operationId: putStatesStateid
       consumes:
@@ -1692,11 +1602,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/state'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - State
+        - states
       description: Deletes a state
       operationId: deleteStatesStateid
       parameters:
@@ -1709,12 +1617,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
-  /usergroupMaps/:
+  /user_usergroup_map/:
     get:
       tags:
-        - UsergroupMap
+        - user_usergroup_map
       description: Loads a list of usergroup_map
       operationId: getUsergroupMaps
       produces:
@@ -1732,7 +1638,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -1774,11 +1680,9 @@ paths:
               $ref: '#/definitions/usergroup_map'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - UsergroupMap
+        - user_usergroup_map
       description: Adds a usergroup_map
       operationId: postUsergroupMaps
       consumes:
@@ -1802,12 +1706,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/usergroup_map'
-      security:
-        - HTTP_BASIC: []
-  '/usergroupMaps/{usergroup_mapid}':
+  '/user_usergroup_map/{usergroup_mapid}':
     get:
       tags:
-        - UsergroupMap
+        - user_usergroup_map
       description: Loads a usergroup_map
       operationId: getUsergroupMapsUsergroup_mapid
       produces:
@@ -1829,11 +1731,9 @@ paths:
             $ref: '#/definitions/usergroup_map'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - UsergroupMap
+        - user_usergroup_map
       description: Stores a usergroup_map
       operationId: putUsergroupMapsUsergroup_mapid
       consumes:
@@ -1863,11 +1763,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/usergroup_map'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - UsergroupMap
+        - user_usergroup_map
       description: Deletes a usergroup_map
       operationId: deleteUsergroupMapsUsergroup_mapid
       parameters:
@@ -1880,12 +1778,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /usergroups/:
     get:
       tags:
-        - Usergroup
+        - usergroups
       description: Loads a list of usergroup
       operationId: getUsergroups
       produces:
@@ -1905,7 +1801,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -1945,11 +1841,9 @@ paths:
               $ref: '#/definitions/usergroup'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - Usergroup
+        - usergroups
       description: Adds a usergroup
       operationId: postUsergroups
       consumes:
@@ -1973,12 +1867,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/usergroup'
-      security:
-        - HTTP_BASIC: []
   '/usergroups/{usergroupid}':
     get:
       tags:
-        - Usergroup
+        - usergroups
       description: Loads a usergroup
       operationId: getUsergroupsUsergroupid
       produces:
@@ -2000,11 +1892,9 @@ paths:
             $ref: '#/definitions/usergroup'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - Usergroup
+        - usergroups
       description: Stores a usergroup
       operationId: putUsergroupsUsergroupid
       consumes:
@@ -2034,11 +1924,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/usergroup'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - Usergroup
+        - usergroups
       description: Deletes a usergroup
       operationId: deleteUsergroupsUsergroupid
       parameters:
@@ -2051,12 +1939,10 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
   /users/:
     get:
       tags:
-        - User
+        - users
       description: Loads a list of user
       operationId: getUsers
       produces:
@@ -2142,7 +2028,7 @@ paths:
         - name: $sort
           in: query
           description: >-
-            Order in which to retrieve the results. Multiple sort criteria can
+            orders in which to retrieve the results. Multiple sort criteria can
             be passed. Example: sort=age ASC,height DESC
           required: false
           type: string
@@ -2172,11 +2058,9 @@ paths:
               $ref: '#/definitions/user'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     post:
       tags:
-        - User
+        - users
       description: Adds a user
       operationId: postUsers
       consumes:
@@ -2200,12 +2084,10 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/user'
-      security:
-        - HTTP_BASIC: []
   '/users/{userid}':
     get:
       tags:
-        - User
+        - users
       description: Loads a user
       operationId: getUsersUserid
       produces:
@@ -2227,11 +2109,9 @@ paths:
             $ref: '#/definitions/user'
         '400':
           description: Status 400
-      security:
-        - HTTP_BASIC: []
     put:
       tags:
-        - User
+        - users
       description: Stores a user
       operationId: putUsersUserid
       consumes:
@@ -2261,11 +2141,9 @@ paths:
           description: Status 200
           schema:
             $ref: '#/definitions/user'
-      security:
-        - HTTP_BASIC: []
     delete:
       tags:
-        - User
+        - users
       description: Deletes a user
       operationId: deleteUsersUserid
       parameters:
@@ -2278,11 +2156,6 @@ paths:
       responses:
         '200':
           description: Status 200
-      security:
-        - HTTP_BASIC: []
-securityDefinitions:
-  HTTP_BASIC:
-    type: basic
 definitions:
   author:
     type: object
@@ -2427,7 +2300,7 @@ definitions:
         format: int32
         example: 1
     example: '{"id":1,"description":"sample description"}'
-  item_order:
+  books_orders:
     type: object
     required:
       - id
