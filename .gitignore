@@ -6,4 +6,5 @@ composer.phar
 # composer.lock
 .idea/Igor-Moraes.iml
 .idea/copyright/
+.idea/
 aula2/.idea/copyright/
