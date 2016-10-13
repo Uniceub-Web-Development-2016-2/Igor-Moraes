@@ -1,7 +1,8 @@
 <?php
-include_once('Request.php');
-include_once('DBConnector.php');
 
+/**
+ * Class ResourceController
+ */
 class ResourceController
 {
 	private $METHODMAP = ['GET' => 'search', 'POST' => 'create', 'PUT' => 'update', 'DELETE' => 'remove'];
@@ -23,15 +24,26 @@ class ResourceController
 	 */
 	public function search($request)
 	{
-		$query = 'SELECT * FROM ' . $request->getPath() . ' WHERE ' . self::queryParams($request->getParams());
-//		echo "<pre>";
-//		var_dump($query);
-//		echo "</pre>";
-//		die;
-		$conn = (new DBConnector())->query($query);
-		$result = $conn->fetchAll(PDO::FETCH_ASSOC);
+		$read = new Read();
+		$termos = !empty($request->getParams()) ? self::getTermos($request->getParams()) : ' WHERE 1';
+		$read->exeRead($request->getPath(), $termos, $request->getParams());
 
-		return $result;
+		return $read->getResult();
+	}
+
+	/**
+	 * Retrieves string of prepared statement
+	 * @param array $params
+	 * @return string = example WHERE name1 = :name1 AND name2 >= :name2
+	 */
+	private function getTermos($params)
+	{
+		$vinculos = "WHERE ";
+		foreach ($params as $key => $value) {
+			$vinculos .= $key . ' = ' . ':' . $key . ' AND ';
+		}
+
+		return substr($vinculos, 0, -5);
 	}
 
 	/**

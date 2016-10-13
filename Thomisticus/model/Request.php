@@ -57,17 +57,17 @@ class Request
 	 * @param string $serverAddress
 	 * @param string $clientAddress
 	 * @param string $path
-	 * @param string $queryString
+	 * @param string $params
 	 * @param string $body
 	 */
-	public function __construct($method, $protocol, $serverAddress, $clientAddress, $path, $queryString, $body)
+	public function __construct($method, $protocol, $serverAddress, $clientAddress, $path, $params, $body)
 	{
 		$this->setMethod($method);
 		$this->setProtocol($protocol);
 		$this->setServerAddress($serverAddress);
 		$this->setClientAddress($clientAddress);
 		$this->setPath($path);
-		$this->setParams($queryString);
+		$this->setParams($params);
 		$this->setBody($body);
 	}
 
@@ -166,8 +166,8 @@ class Request
 	 */
 	public function setParams($params)
 	{
-		parse_str($params, $paramsArray);
-		$this->params = $paramsArray;
+		parse_str($params, $parseString);
+		$this->params = $parseString;
 	}
 
 	/**

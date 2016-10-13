@@ -1,7 +1,8 @@
 <?php
-include('Request.php');
-include('ResourceController.php');
 
+/**
+ * Class RequestController
+ */
 class RequestController
 {
 	const VALID_METHODS = array('GET', 'POST', 'PUT', 'DELETE');
