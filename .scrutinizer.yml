@@ -1,0 +1,4 @@
+filter:
+    paths: ["aulas/*"]
+    excluded_paths:
+        - "aulas/"               # Everything in a root level "tests" directory
