@@ -1,4 +1,8 @@
+checks:
+  php:
+    code_rating: true
+    duplication: true
+
 filter:
-    paths: ["aulas/*"]
-    excluded_paths:
-        - "aulas/"               # Everything in a root level "tests" directory
+  excluded_paths:
+    - aulas/*
