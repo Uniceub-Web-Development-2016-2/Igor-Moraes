@@ -154,7 +154,7 @@ class Request
 	}
 
 	/**
-	 * @return mixed|array
+	 * @return mixed|array|string
 	 */
 	public function getParams()
 	{
@@ -166,8 +166,7 @@ class Request
 	 */
 	public function setParams($params)
 	{
-		parse_str($params, $parseString);
-		$this->params = $parseString;
+		(is_array($params)) ? $this->params = $params : parse_str($params, $this->params);
 	}
 
 	/**

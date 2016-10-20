@@ -10,6 +10,9 @@ define('PORT', '8889');
 define('USER', 'root');
 define('PASS', 'root');
 define('DB', 'thomisticus');
+define('INTEGRATION', 'true');
+define('SORTMAP', serialize(array('sort', 'limit', 'offset')));
+
 
 /**
  * Auto Load de classes

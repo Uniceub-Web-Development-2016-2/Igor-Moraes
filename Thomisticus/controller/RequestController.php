@@ -10,7 +10,7 @@ class RequestController
 
 	/**
 	 * Execute a request
-	 * @return mixed
+	 * @return mixed|array
 	 */
 	public function execute()
 	{

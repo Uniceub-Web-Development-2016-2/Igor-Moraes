@@ -8,12 +8,12 @@ class ResourceController
 	private $METHODMAP = ['GET' => 'search', 'POST' => 'create', 'PUT' => 'update', 'DELETE' => 'remove'];
 
 	/**
+	 * Calling a function by string, according to which METHODMAP's array key
 	 * @param Request $request
 	 * @return mixed
 	 */
 	public function treatRequest($request)
 	{
-		// Calling a function by string, according to which METHODMAP's array key
 		return $this->{$this->METHODMAP[$request->getMethod()]}($request);
 	}
 
@@ -25,7 +25,7 @@ class ResourceController
 	public function search($request)
 	{
 		$read = new Read();
-		$termos = !empty($request->getParams()) ? self::getTermos($request->getParams()) : ' WHERE 1';
+		$termos = !empty($request->getParams()) ? self::getTerms($request->getParams()) : ' WHERE 1';
 		$read->exeRead($request->getPath(), $termos, $request->getParams());
 
 		return $read->getResult();
@@ -36,28 +36,29 @@ class ResourceController
 	 * @param array $params
 	 * @return string = example WHERE name1 = :name1 AND name2 >= :name2
 	 */
-	private function getTermos($params)
+	private function getTerms($params)
 	{
 		$vinculos = "WHERE ";
 		foreach ($params as $key => $value) {
-			$vinculos .= $key . ' = ' . ':' . $key . ' AND ';
+			if (!in_array($key, unserialize(SORTMAP))) {
+				$vinculos .= $key . ' = :' . $key . ' AND ';
+			}
 		}
-
-		return substr($vinculos, 0, -5);
+		return substr($vinculos, 0, -5) . $this->getQuerySort($params);
 	}
 
 	/**
-	 * Separate parameters from queryString
-	 * @param array $params = Query String ($_SERVER['QUERY_STRING'])
-	 * @return string = conditions to SQL query (key = value)
+	 * @param array $params
+	 * @return string = example
 	 */
-	public function queryParams($params)
+	private function getQuerySort($params)
 	{
-		$query = '';
+		$querySort = "";
 		foreach ($params as $key => $value) {
-			$query .= $key . ' = ' . '"' . $value . '"' . ' AND ';
+			if (in_array($key, unserialize(SORTMAP))) {
+				$querySort .= ($key == 'sort') ? " ORDER BY {$value}" : " " . strtoupper($key) . " :{$key} ";
+			}
 		}
-		return substr($query, 0, -5);
+		return $querySort;
 	}
-
 }
