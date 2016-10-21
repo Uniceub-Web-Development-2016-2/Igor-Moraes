@@ -35,7 +35,7 @@ class Request
 	 * $_SERVER['REQUEST_URI'], $_SERVER['PATH_INFO']
 	 * @var string The URI which was given in order to access this page; for instance, '/index.html'.
 	 */
-	private $path;
+	private $resource;
 
 	/**
 	 * $_SERVER['QUERY_STRING']
@@ -66,7 +66,7 @@ class Request
 		$this->setProtocol($protocol);
 		$this->setServerAddress($serverAddress);
 		$this->setClientAddress($clientAddress);
-		$this->setPath($path);
+		$this->setResource($path);
 		$this->setParams($params);
 		$this->setBody($body);
 	}
@@ -138,19 +138,19 @@ class Request
 	/**
 	 * @return mixed
 	 */
-	public function getPath()
+	public function getResource()
 	{
-		return $this->path;
+		return $this->resource;
 	}
 
 	/**
-	 * @param string $path
+	 * @param string $resource
 	 */
-	public function setPath($path)
+	public function setResource($resource)
 	{
-		$s = explode("?", $path);
+		$s = explode("?", $resource);
 		$r = explode("/", $s[0]);
-		$this->path = $r[3];
+		$this->resource = $r[3];
 	}
 
 	/**
@@ -182,7 +182,8 @@ class Request
 	 */
 	public function setBody($body)
 	{
-		$this->body = $body;
+		$this->body = (is_array($body)) ? $body : json_decode($body, true);
+//		$this->body = $body;
 	}
 
 }
