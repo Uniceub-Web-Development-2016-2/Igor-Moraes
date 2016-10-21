@@ -18,6 +18,12 @@ class ResourceController
 	}
 
 	/**
+	 * ****************************************
+	 * *********** PRIVATE METHODS ************
+	 * ****************************************
+	 */
+
+	/**
 	 * Create SQL query SELECT
 	 * @param Request $request
 	 * @return string

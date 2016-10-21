@@ -183,7 +183,6 @@ class Request
 	public function setBody($body)
 	{
 		$this->body = (is_array($body)) ? $body : json_decode($body, true);
-//		$this->body = $body;
 	}
 
 }
