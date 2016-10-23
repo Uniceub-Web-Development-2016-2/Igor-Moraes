@@ -172,9 +172,9 @@ class Request
 	/**
 	 * @return array
 	 */
-	public function getBody()
+	public function getBody($assoc = false)
 	{
-		return $this->body;
+		return ($assoc == true) ? http_build_query($this->body) : $this->body;
 	}
 
 	/**

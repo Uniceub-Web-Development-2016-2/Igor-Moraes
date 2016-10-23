@@ -18,7 +18,7 @@ class Update extends DBConnector
 	/** @var array = array of places to be inserted in query (key = value) */
 	private $places;
 
-	/** @var array = query result */
+	/** @var boolean = query result */
 	private $result;
 
 	/** @var PDOStatement */
@@ -66,7 +66,7 @@ class Update extends DBConnector
 	/**
 	 * <b>Modify Links:</b> Method can be used to update with Stored Procedures. Modifying only condition's values
 	 * You can use this method to edit multiple lines.
-	 * @param array $params = 'id' => '5'
+	 * @param null|array $params = 'id' => '5'
 	 */
 	public function setPlaces($params)
 	{

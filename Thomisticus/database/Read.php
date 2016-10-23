@@ -53,7 +53,7 @@ class Read extends DBConnector
 	 * @param array $params
 	 * @return string = example WHERE name1 = :name1 AND name2 >= :name2
 	 */
-	public function getTerms($params)
+	public function getConditions($params)
 	{
 		$vinculos = "WHERE ";
 		foreach ($params as $key => $value) {

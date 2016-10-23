@@ -5,7 +5,7 @@
  */
 class ResourceController
 {
-	private $METHODMAP = ['GET' => 'read', 'POST' => 'create', 'PUT' => 'update', 'DELETE' => 'remove'];
+	private $METHODMAP = ['POST' => 'create', 'GET' => 'read', 'PUT' => 'update', 'DELETE' => 'delete'];
 
 	/**
 	 * Calling a function by string, according to which METHODMAP's array key
@@ -24,18 +24,6 @@ class ResourceController
 	 */
 
 	/**
-	 * Create SQL query SELECT
-	 * @param Request $request
-	 * @return string
-	 */
-	private function read($request)
-	{
-		$read = new Read();
-		$read->exeRead($request->getResource(), $read->getTerms($request->getParams()), $request->getParams());
-		return $read->getResult();
-	}
-
-	/**
 	 * Execute an Insert in Database from body request
 	 * @param Request $request
 	 */
@@ -47,16 +35,49 @@ class ResourceController
 	}
 
 	/**
+	 * Create SQL query SELECT
+	 * @param Request $request
+	 * @return string
+	 */
+	private function read($request)
+	{
+		$read = new Read();
+		$read->exeRead($request->getResource(), $read->getConditions($request->getParams()), $request->getParams());
+		return $read->getResult();
+	}
+
+	/**
 	 * Execute an Update in Database
 	 * The primary key must be the first element in array, to be used as query criteria
 	 * @param Request $request
 	 */
 	private function update($request)
 	{
+		$body = $request->getBody();
 		$update = new Update();
-		$term = key($request->getBody());
-		$criteria = http_build_query(array_slice($request->getBody(), 0, 1));
-		$update->exeUpdate($request->getResource(), $request->getBody(), "{$term} = :{$term}", $criteria);
+
+		// The first key of array, which must be the primary key, for prepared statement. Ex: id = :id
+		$term = key($body);
+
+		//String to replacement when query is prepared by PDO. Ex: id = 5
+		$criteria = "{$term} = " . reset($body);
+
+		$update->exeUpdate($request->getResource(), $body, "{$term} = :{$term}", $criteria);
+
 		return $update->getResult();
+	}
+
+	/**
+	 * Execute an Update in Database
+	 * Request body must have at least one column=value to be used as query criteria (preferably primary key at array beginning)
+	 * @param Request $request
+	 */
+	private function delete($request)
+	{
+		$delete = new Delete();
+		$delete->exeDelete($request->getResource(), $delete->getConditions($request->getBody()),
+			$request->getBody(true));
+
+		return $delete->getResult();
 	}
 }
