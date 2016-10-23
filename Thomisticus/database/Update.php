@@ -2,45 +2,52 @@
 
 /**
  * <b>Update.class:</b>
- * Classe responsável por atualizações genéticas no banco de dados!
- *
- * @copyright (c) 2014, Robson V. Leite UPINSIDE TECNOLOGIA
+ * Class responsible for general updates in the database.
  */
 class Update extends DBConnector
 {
-	private $tabela;
-	private $dados;
-	private $termos;
+	/** @var string = Table name to update values */
+	private $table;
+
+	/** @var array = array of places to be inserted in query (key = value) */
+	private $data;
+
+	/** @var string = WHERE column = :link AND.. OR.. */
+	private $terms;
+
+	/** @var array = array of places to be inserted in query (key = value) */
 	private $places;
+
+	/** @var array = query result */
 	private $result;
 
 	/** @var PDOStatement */
 	private $update;
 
-	/** @var PDO */
+	/** @var PDO To get the PDO Connection */
 	private $connection;
 
 	/**
-	 * <b>Exe Update:</b> Executa uma atualização simplificada com Prepared Statements. Basta informar o
-	 * nome da tabela, os dados a serem atualizados em um Array Atribuitivo, as condições e uma
-	 * analise em cadeia (ParseString) para executar.
-	 * @param string $tabela = Nome da tabela
-	 * @param array $dados = [ NomeDaColuna ] => Valor ( Atribuição )
-	 * @param string $termos = WHERE coluna = :link AND.. OR..
+	 * <b>Execute Update:</b> Executes a simplified update with Prepared Statements.
+	 * Simply enter the table name, data to be update in a attributive array, the conditions and an analysis chain (parseString) to execute.
+	 * @param string $table = Table name
+	 * @param array $data = [ columnName ] => Value ( Attribution )
+	 * @param string $terms = WHERE column = :link AND.. OR..
 	 * @param null|string $params = link={$link}&link2={$link2}
 	 */
-	public function exeUpdate($tabela, array $dados, $termos, $params = null)
+	public function exeUpdate($table, array $data, $terms, $params = null)
 	{
-		$this->tabela = $tabela;
-		$this->dados = $dados;
-		$this->termos = $termos;
+		$this->table = $table;
+		$this->data = $data;
+		$this->terms = $terms;
 		$this->setPlaces($params);
 	}
 
 	/**
-	 * <b>Obter resultado:</b> Retorna TRUE se não ocorrer erros, ou FALSE. Mesmo não alterando os dados se uma query
-	 * for executada com sucesso o retorno será TRUE. Para verificar alterações execute o getRowCount();
-	 * @return BOOL $Var = True ou False
+	 * <b>Get result:</b> Retrieves TRUE if no errors occur, or false otherwise.
+	 * Even without changing the data, if a query was successful the return is TRUE.
+	 * To verify changes, executes getRowCount().
+	 * @return bool $var = true or false
 	 */
 	public function getResult()
 	{
@@ -48,8 +55,8 @@ class Update extends DBConnector
 	}
 
 	/**
-	 * <b>Contar Registros: </b> Retorna o número de linhas alteradas no banco!
-	 * @return INT $Var = Quantidade de linhas alteradas
+	 * <b>Count records:</b> Retrieves number of rows updated in database
+	 * @return integer $var = Quantity of rows updated
 	 */
 	public function getRowCount()
 	{
@@ -57,8 +64,8 @@ class Update extends DBConnector
 	}
 
 	/**
-	 * <b>Modificar Links:</b> Método pode ser usado para atualizar com Stored Procedures. Modificando apenas os valores
-	 * da condição. Use este método para editar múltiplas linhas!
+	 * <b>Modify Links:</b> Method can be used to update with Stored Procedures. Modifying only condition's values
+	 * You can use this method to edit multiple lines.
 	 * @param array $params = 'id' => '5'
 	 */
 	public function setPlaces($params)
@@ -74,31 +81,37 @@ class Update extends DBConnector
 	 * ****************************************
 	 */
 
-	//Obtém o PDO e Prepara a query
+	/**
+	 * Get PDO and prepare query
+	 */
 	private function connect()
 	{
 		$this->connection = parent::getConnection();
 		$this->update = $this->connection->prepare($this->update);
 	}
 
-	//Cria a sintaxe da query para Prepared Statements
+	/**
+	 * Create query syntax to Prepared Statements
+	 */
 	private function getSyntax()
 	{
 		$places = array();
-		foreach ($this->dados as $key => $value) {
+		foreach ($this->data as $key => $value) {
 			$places[] = $key . ' = :' . $key;
 		}
 
 		$places = implode(', ', $places);
-		$this->update = "UPDATE {$this->tabela} SET {$places} WHERE {$this->termos}";
+		$this->update = "UPDATE {$this->table} SET {$places} WHERE {$this->terms}";
 	}
 
-	//Obtém a Conexão e a Syntax, executa a query!
+	/**
+	 * Get connection and syntax and executes query
+	 */
 	private function execute()
 	{
 		$this->connect();
 		try {
-			$this->update->execute(array_merge($this->dados, $this->places));
+			$this->update->execute(array_merge($this->data, $this->places));
 			$this->result = true;
 		} catch (PDOException $e) {
 			$this->result = null;

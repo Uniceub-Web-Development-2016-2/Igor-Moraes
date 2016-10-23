@@ -19,9 +19,9 @@ class Read extends DBConnector
 	private $connection;
 
 	/**
-	 * <b>Execute Read:</b> Executa uma leitura simplificada com Prepared Statements. Basta informar o nome da tabela,
-	 * os termos da seleção e uma análise em cadeia (ParseString) para executar.
-	 * @param string $table = Nome da tabela
+	 * <b>Execute Read:</b> Executa uma leitura simplificada com Prepared Statements.
+	 * Simply enter the table name, terms of selection and an analysis chain (parseString) to execute.
+	 * @param string $table = Table name
 	 * @param string $terms = WHERE | ORDER | LIMIT :limit | OFFSET :offset
 	 * @param string $params = link={$link}&link2={$link2}
 	 */
