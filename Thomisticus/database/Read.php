@@ -99,14 +99,12 @@ class Read extends DBConnector
 	}
 
 	/**
-	 * @param string $queryString
+	 * @param string $params
 	 */
-	public function setPlaces($queryString)
+	public function setPlaces($params)
 	{
-		if (!empty($queryString['sort'])) {
-			unset($queryString['sort']);
-		}
-		$this->places = $queryString;
+		(is_array($params)) ? $this->places = $params : parse_str($params, $this->places);
+		$this->checkSort($params);
 	}
 
 
@@ -115,6 +113,18 @@ class Read extends DBConnector
 	 * *********** PRIVATE METHODS ************
 	 * ****************************************
 	 */
+
+	/**
+	 * If sort criteria is setted, it'll unset this element of array to don't be binded in Prepared Statement
+	 * @param string $params
+	 */
+	private function checkSort($params)
+	{
+		if (!empty($params['sort'])) {
+			unset($params['sort']);
+			$this->places = $params;
+		}
+	}
 
 	/**
 	 * Get PDO and prepare query
