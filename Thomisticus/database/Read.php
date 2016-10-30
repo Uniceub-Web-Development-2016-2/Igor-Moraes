@@ -58,10 +58,10 @@ class Read extends DBConnector
 		$vinculos = "WHERE ";
 		foreach ($params as $key => $value) {
 			if (!in_array($key, unserialize(SORTMAP))) {
-				$vinculos .= $key . ' = :' . $key . ' AND ';
+				$vinculos .= $key . ' = :' . $key . '  AND ';
 			}
 		}
-		return substr($vinculos, 0, -5) . self::getQuerySort($params);
+		return substr($vinculos, 0, -6) . self::getQuerySort($params);
 	}
 
 	/**
