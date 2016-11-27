@@ -35,6 +35,68 @@ class Read extends DBConnector
 	}
 
 	/**
+	 * @param string $params
+	 */
+	public function setPlaces($params)
+	{
+		(is_array($params)) ? $this->places = $params : parse_str($params, $this->places);
+		$this->checkSort($params);
+	}
+
+	/**
+	 * If sort criteria is setted, it'll unset this element of array to don't be binded in Prepared Statement
+	 * @param string $params
+	 */
+	private function checkSort($params)
+	{
+		if (!empty($params['sort'])) {
+			unset($params['sort']);
+			$this->places = $params;
+		}
+	}
+
+	/**
+	 * Get connection and syntax and executes query
+	 */
+	private function execute()
+	{
+		$this->connect();
+		try {
+			$this->getSyntax();
+			$this->select->execute();
+			$this->result = $this->select->fetchAll();
+		} catch (PDOException $e) {
+			$this->result = null;
+			Erro("<b>Error reading:</b> {$e->getMessage()}", $e->getCode());
+		}
+	}
+
+	/**
+	 * Get PDO and prepare query
+	 */
+	private function connect()
+	{
+		$this->connection = parent::getConnection();
+		$this->select = $this->connection->prepare($this->select);
+		$this->select->setFetchMode(PDO::FETCH_ASSOC);
+	}
+
+	/**
+	 * Create query syntax to Prepared Statements
+	 */
+	private function getSyntax()
+	{
+		if ($this->places) {
+			foreach ($this->places as $vinculo => $valor) {
+				if (in_array($vinculo, unserialize(SORTMAP)) && $vinculo != 'sort') {
+					$valor = intval($valor);
+				}
+				$this->select->bindValue(":{$vinculo}", $valor, (is_int($valor) ? PDO::PARAM_INT : PDO::PARAM_STR));
+			}
+		}
+	}
+
+	/**
 	 * Method to pass the query manually and be able to work with inners and joins
 	 * @param string $query = full query
 	 * @param string|null $queryString
@@ -47,6 +109,13 @@ class Read extends DBConnector
 		}
 		$this->execute();
 	}
+
+
+	/**
+	 * ****************************************
+	 * *********** PRIVATE METHODS ************
+	 * ****************************************
+	 */
 
 	/**
 	 * Retrieves string of prepared statement
@@ -96,75 +165,6 @@ class Read extends DBConnector
 	public function getRowCount()
 	{
 		return $this->select->rowCount();
-	}
-
-	/**
-	 * @param string $params
-	 */
-	public function setPlaces($params)
-	{
-		(is_array($params)) ? $this->places = $params : parse_str($params, $this->places);
-		$this->checkSort($params);
-	}
-
-
-	/**
-	 * ****************************************
-	 * *********** PRIVATE METHODS ************
-	 * ****************************************
-	 */
-
-	/**
-	 * If sort criteria is setted, it'll unset this element of array to don't be binded in Prepared Statement
-	 * @param string $params
-	 */
-	private function checkSort($params)
-	{
-		if (!empty($params['sort'])) {
-			unset($params['sort']);
-			$this->places = $params;
-		}
-	}
-
-	/**
-	 * Get PDO and prepare query
-	 */
-	private function connect()
-	{
-		$this->connection = parent::getConnection();
-		$this->select = $this->connection->prepare($this->select);
-		$this->select->setFetchMode(PDO::FETCH_ASSOC);
-	}
-
-	/**
-	 * Create query syntax to Prepared Statements
-	 */
-	private function getSyntax()
-	{
-		if ($this->places) {
-			foreach ($this->places as $vinculo => $valor) {
-				if (in_array($vinculo, unserialize(SORTMAP)) && $vinculo != 'sort') {
-					$valor = intval($valor);
-				}
-				$this->select->bindValue(":{$vinculo}", $valor, (is_int($valor) ? PDO::PARAM_INT : PDO::PARAM_STR));
-			}
-		}
-	}
-
-	/**
-	 * Get connection and syntax and executes query
-	 */
-	private function execute()
-	{
-		$this->connect();
-		try {
-			$this->getSyntax();
-			$this->select->execute();
-			$this->result = $this->select->fetchAll();
-		} catch (PDOException $e) {
-			$this->result = null;
-			Erro("<b>Error reading:</b> {$e->getMessage()}", $e->getCode());
-		}
 	}
 
 }

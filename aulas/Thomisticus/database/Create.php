@@ -38,30 +38,6 @@ class Create extends DBConnector
 	}
 
 	/**
-	 * <b>Get result:</b> Retrieves the ID of inserted registry or FALSE if no record has been entered
-	 * @return array|integer|false $variavel = lastInsertId or false
-	 */
-	public function getResult()
-	{
-		return $this->result;
-	}
-
-	/**
-	 * ****************************************
-	 * *********** PRIVATE METHODS ************
-	 * ****************************************
-	 */
-
-	/**
-	 * Get PDO and prepare query
-	 */
-	private function connect()
-	{
-		$this->connection = parent::getConnection();
-		$this->create = $this->connection->prepare($this->create);
-	}
-
-	/**
 	 * Create query syntax to Prepared Statements
 	 */
 	private function getSyntax()
@@ -70,6 +46,12 @@ class Create extends DBConnector
 		$places = ':' . implode(', :', array_keys($this->data));
 		$this->create = "INSERT INTO {$this->table} ({$fields}) VALUES ({$places})";
 	}
+
+	/**
+	 * ****************************************
+	 * *********** PRIVATE METHODS ************
+	 * ****************************************
+	 */
 
 	/**
 	 * Get connection and executes query
@@ -84,6 +66,24 @@ class Create extends DBConnector
 			$this->result = null;
 			Erro("<b>Erro ao cadastrar:</b> {$e->getMessage()}", $e->getCode());
 		}
+	}
+
+	/**
+	 * Get PDO and prepare query
+	 */
+	private function connect()
+	{
+		$this->connection = parent::getConnection();
+		$this->create = $this->connection->prepare($this->create);
+	}
+
+	/**
+	 * <b>Get result:</b> Retrieves the ID of inserted registry or FALSE if no record has been entered
+	 * @return array|integer|false $variavel = lastInsertId or false
+	 */
+	public function getResult()
+	{
+		return $this->result;
 	}
 
 }

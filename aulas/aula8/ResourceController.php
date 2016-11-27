@@ -28,6 +28,16 @@ class ResourceController
 		return $result;
 	}
 
+	private function bodyParams($json)
+	{
+		$criteria = "";
+		$array = json_decode($json, true);
+		foreach ($array as $key => $value) {
+			$criteria .= $key . "='" . $value . "' AND ";
+		}
+		return substr($criteria, 0, -5);
+	}
+
 	/**
 	 * Create SQL query SELECT
 	 * @param Request $request
@@ -103,16 +113,6 @@ class ResourceController
 			}
 		}
 		return substr($criteria, 0, -1) . $where . "id=" . $array['id'];
-	}
-
-	private function bodyParams($json)
-	{
-		$criteria = "";
-		$array = json_decode($json, true);
-		foreach ($array as $key => $value) {
-			$criteria .= $key . "='" . $value . "' AND ";
-		}
-		return substr($criteria, 0, -5);
 	}
 
 }

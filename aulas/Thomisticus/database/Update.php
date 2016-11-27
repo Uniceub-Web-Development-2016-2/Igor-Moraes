@@ -44,26 +44,6 @@ class Update extends DBConnector
 	}
 
 	/**
-	 * <b>Get result:</b> Retrieves TRUE if no errors occur, or false otherwise.
-	 * Even without changing the data, if a query was successful the return is TRUE.
-	 * To verify changes, executes getRowCount().
-	 * @return bool $var = true or false
-	 */
-	public function getResult()
-	{
-		return $this->result;
-	}
-
-	/**
-	 * <b>Count records:</b> Retrieves number of rows updated in database
-	 * @return integer $var = Quantity of rows updated
-	 */
-	public function getRowCount()
-	{
-		return $this->update->rowCount();
-	}
-
-	/**
 	 * <b>Modify Links:</b> Method can be used to update with Stored Procedures. Modifying only condition's values
 	 * You can use this method to edit multiple lines.
 	 * @param null|array $params = 'id' => '5'
@@ -73,21 +53,6 @@ class Update extends DBConnector
 		(is_array($params)) ? $this->places = $params : parse_str($params, $this->places);
 		$this->getSyntax();
 		$this->execute();
-	}
-
-	/**
-	 * ****************************************
-	 * *********** PRIVATE METHODS ************
-	 * ****************************************
-	 */
-
-	/**
-	 * Get PDO and prepare query
-	 */
-	private function connect()
-	{
-		$this->connection = parent::getConnection();
-		$this->update = $this->connection->prepare($this->update);
 	}
 
 	/**
@@ -117,6 +82,41 @@ class Update extends DBConnector
 			$this->result = null;
 			Erro("<b>Erro ao Ler:</b> {$e->getMessage()}", $e->getCode());
 		}
+	}
+
+	/**
+	 * ****************************************
+	 * *********** PRIVATE METHODS ************
+	 * ****************************************
+	 */
+
+	/**
+	 * Get PDO and prepare query
+	 */
+	private function connect()
+	{
+		$this->connection = parent::getConnection();
+		$this->update = $this->connection->prepare($this->update);
+	}
+
+	/**
+	 * <b>Get result:</b> Retrieves TRUE if no errors occur, or false otherwise.
+	 * Even without changing the data, if a query was successful the return is TRUE.
+	 * To verify changes, executes getRowCount().
+	 * @return bool $var = true or false
+	 */
+	public function getResult()
+	{
+		return $this->result;
+	}
+
+	/**
+	 * <b>Count records:</b> Retrieves number of rows updated in database
+	 * @return integer $var = Quantity of rows updated
+	 */
+	public function getRowCount()
+	{
+		return $this->update->rowCount();
 	}
 
 }
