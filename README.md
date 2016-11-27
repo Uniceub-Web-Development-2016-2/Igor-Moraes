@@ -51,11 +51,13 @@ Uma nova versão utilizando as Threads deverá ser desenvolvida e a solução vi
  
  Hoje, um ano depois, vejo como isso é verídico.
  
- Consegui desenvolver uma aplicação de muita utilidade para o mercado. A empresa que trabalho costumava pagar 2 mil reais para freelancers criarem web services específicos. No momento, já consegui fazer duas vendas com que foi aprendido/desenvolvido para sua disciplina (pelo **dobro** desse valor). Além de ter sido reconhecido pelo aprendizado e ter meu salário dobrado durante o semestre (mesmo cursando 10 disciplinas).
+ Consegui desenvolver uma aplicação de muita utilidade para o mercado. A empresa que trabalho costumava pagar caro para freelancers criarem web services específicos e mal codificados. No momento, já consegui fazer duas vendas com que foi aprendido/desenvolvido para sua disciplina (pelo **dobro** do valor que costumavam pagar). Além de ter sido reconhecido pelo aprendizado e ter meu salário dobrado durante o semestre (mesmo cursando 10 disciplinas).
   
-  Mas o dinheiro que fique em segundo plano, o conhecimento foi o mais importante. Dentre eles: forte abstração em POO, Triggers do MySQL, assincronicidade e relacionamento cliente/servidor via AJAX... Tópicos que há pouco pareciam assombrosos. 
+  Mas o dinheiro que fique em segundo plano, o conhecimento foi o mais importante. Dentre eles: *REST*, *HTTP Requests*, forte *abstração* em POO, *Triggers* do MySQL, registro de *logs*, *assincronicidade* e relacionamento cliente/servidor via *AJAX*... Tópicos que há pouco me pareciam bem distantes (os póximos passos serão Threads e Testes Unitários).
   
-  Darei continuidade neste projeto e nos vemos no UIoT.
+  Darei continuidade neste projeto.
+  
+  Nos vemos no **UIoT**.
   
   Atenciosamente.
 
