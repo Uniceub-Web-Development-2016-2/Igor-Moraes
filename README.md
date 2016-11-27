@@ -11,7 +11,9 @@ O 'coração' do projeto pode ser encontrado nesta [pasta](https://github.com/Un
 ### Features
 * Gerenciar os Resources (recursos/tabelas) e External Senders (envio para terceiros) por um painel administrativo
 * Criar "de/paras" de campos para o relacionamento entre dois servidores
-* Informar qual tipo de privilégio tal Resource terá [GET = Read | POST = Insert| PUT = Update | DELETE = Delete]
+* Informar qual tipo de privilégio tal Resource terá 
+  
+  **[GET = Read | POST = Insert | PUT = Update | DELETE = Delete]**
 * [Mini-framework](https://github.com/Uniceub-Web-Development-2016-2/Igor-Moraes/tree/master/com_restful/ws/database) para CRUD, utilizando PDO e padrão Singleton
 * [Trigger Factory](https://github.com/Uniceub-Web-Development-2016-2/Igor-Moraes/blob/master/com_restful/ws/database/Trigger.php) - [Cria as Triggers](https://github.com/Uniceub-Web-Development-2016-2/Igor-Moraes/blob/master/com_restful/administrator/models/externalsender.php#L214) no MySQL para as tabelas que deseja monitorar/enviar Requests para outro servidor. Assim, toda alteracão que for feita nas tabelas que estão sendo "escutadas", serão armazenadas numa tabela de log e em seguida a Request via HTTP será enviada.
 
@@ -44,7 +46,16 @@ Por dificuldades com infraestrutura/configuração, não foi possível otimizar 
 
 Uma nova versão utilizando as Threads deverá ser desenvolvida e a solução via JavaScript deixada de lado.
 
-## Autor
+## Agradecimentos
+ Caio, acredito que essa foi a matéria mais aprendi no curso até então. Não acreditava muito no que você disse em LTP1: "O aprendizado em programação é exponencial, você ainda chegará num ponto em que irá disparar  na curva de aprendizado e passará a abstrair as coisas".
+ 
+ Hoje, um ano depois, vejo como isso é verídico.
+ 
+ Consegui desenvolver uma aplicação de muita utilidade para o mercado. A empresa que trabalho costumava pagar 2 mil reais para freelancers criarem web services específicos. No momento, já consegui fazer duas vendas com que foi aprendido/desenvolvido para sua disciplina (pelo **dobro** desse valor).
+  
+  Mas o dinheiro que fique em segundo plano, o conhecimento foi o mais importante. Darei continuidade neste projeto.
+  
+  Atenciosamente.
 
 **Igor Sousa Guedes de Moraes** - RA: 21501099
 
