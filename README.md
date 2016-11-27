@@ -30,17 +30,17 @@ Esses podem ser enviados para a url: http://tridiacriacao.com/clientes/Thomistic
 
 Tudo que vem depois de /ws é um resource, ou seja, o nome de uma tabela no banco de dados (desconsiderando o prefixo dessa). Caso necessite, fique a vontade de liberar novos resources.
 
-### Melhorias e contribuição
-
-Por dificuldades com infraestrutura/configuração, não foi possível otimizar o trabalho com as Threads do PHP, para monitorar a tabela de log e fazer o gatilho para envio de Requests. Contudo, para manter a assincronicidade dos processos, foi utilizado o AJAX.
-
-Uma nova versão utilizando as Threads deverá ser desenvolvida e a solução via JavaScript deixada de lado.
-
 ### Desenvolvido com
 
 * PHP 7.0.0
 * JavaScript & jQuery
 * HTML5/CSS3
+
+## Melhorias e contribuição
+
+Por dificuldades com infraestrutura/configuração, não foi possível otimizar o trabalho com as Threads do PHP, para monitorar a tabela de log e fazer o gatilho para envio de Requests. Contudo, para manter a assincronicidade dos processos, foi utilizado o AJAX ([aqui](https://github.com/Uniceub-Web-Development-2016-2/Igor-Moraes/blob/master/com_restful/media/js/logtable.js)).
+
+Uma nova versão utilizando as Threads deverá ser desenvolvida e a solução via JavaScript deixada de lado.
 
 ## Autor
 
