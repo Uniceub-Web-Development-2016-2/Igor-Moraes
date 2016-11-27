@@ -1,0 +1,2495 @@
+swagger: '2.0'
+info:
+  description: ''
+  version: 1.6.1
+  title: Thomisticus API
+  contact:
+    name: Igor Moraes
+    email: igor.sgm@gmail.com
+host: localhost:8888
+basePath: /Igor-Moraes/Thomisticus
+tags:
+  - name: cities
+  - name: collections
+  - name: orders
+  - name: books_orders
+    description: Relationship between books and orders
+  - name: states
+  - name: users
+  - name: categories
+  - name: usergroups
+  - name: user_usergroup_map
+    description: Relationship between users and usergroups
+  - name: publisher
+  - name: authors
+  - name: books
+schemes:
+  - http
+paths:
+  /authors/:
+    get:
+      tags:
+        - authors
+      description: Loads a list of author
+      operationId: getAuthors
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/author'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - authors
+      description: Adds a author
+      operationId: postAuthors
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/author'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/author'
+  '/authors/{authorid}':
+    get:
+      tags:
+        - authors
+      description: Loads a author
+      operationId: getAuthorsAuthorid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: authorid
+          in: path
+          description: Identifier of the author
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/author'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - authors
+      description: Stores a author
+      operationId: putAuthorsAuthorid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: authorid
+          in: path
+          description: Identifier of the author
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/author'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/author'
+    delete:
+      tags:
+        - authors
+      description: Deletes a author
+      operationId: deleteAuthorsAuthorid
+      parameters:
+        - name: authorid
+          in: path
+          description: Identifier of the author
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /books/:
+    get:
+      tags:
+        - books
+      description: Loads a list of book
+      operationId: getBooks
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: id_publisher
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_publisher
+          required: false
+          type: string
+          x-example: sample id_publisher
+        - name: notes
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            notes
+          required: false
+          type: string
+          x-example: sample notes
+        - name: call_number
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            call_number
+          required: false
+          type: string
+          x-example: sample call_number
+        - name: price_sale
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            price_sale
+          required: false
+          type: string
+          x-example: sample price_sale
+        - name: volume
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            volume
+          required: false
+          type: string
+          x-example: sample volume
+        - name: isbn
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            isbn
+          required: false
+          type: string
+          x-example: sample isbn
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: publish_date
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            publish_date
+          required: false
+          type: string
+          x-example: sample publish_date
+        - name: stock
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            stock
+          required: false
+          type: string
+          x-example: sample stock
+        - name: price_cost
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            price_cost
+          required: false
+          type: string
+          x-example: sample price_cost
+        - name: publish_place
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            publish_place
+          required: false
+          type: string
+          x-example: sample publish_place
+        - name: edition
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            edition
+          required: false
+          type: string
+          x-example: sample edition
+        - name: id_category
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_category
+          required: false
+          type: string
+          x-example: sample id_category
+        - name: id_author
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_author
+          required: false
+          type: string
+          x-example: sample id_author
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: abstract
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            abstract
+          required: false
+          type: string
+          x-example: sample abstract
+        - name: title
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            title
+          required: false
+          type: string
+          x-example: sample title
+        - name: id_collection
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_collection
+          required: false
+          type: string
+          x-example: sample id_collection
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/book'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - books
+      description: Adds a book
+      operationId: postBooks
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/book'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/book'
+  '/books/{bookid}':
+    get:
+      tags:
+        - books
+      description: Loads a book
+      operationId: getBooksBookid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: bookid
+          in: path
+          description: Identifier of the book
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/book'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - books
+      description: Stores a book
+      operationId: putBooksBookid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: bookid
+          in: path
+          description: Identifier of the book
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/book'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/book'
+    delete:
+      tags:
+        - books
+      description: Deletes a book
+      operationId: deleteBooksBookid
+      parameters:
+        - name: bookid
+          in: path
+          description: Identifier of the book
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /categories/:
+    get:
+      tags:
+        - categories
+      description: Loads a list of category
+      operationId: getCategories
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/category'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - categories
+      description: Adds a category
+      operationId: postCategories
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/category'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/category'
+  '/categories/{categoryid}':
+    get:
+      tags:
+        - categories
+      description: Loads a category
+      operationId: getCategoriesCategoryid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: categoryid
+          in: path
+          description: Identifier of the category
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/category'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - categories
+      description: Stores a category
+      operationId: putCategoriesCategoryid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: categoryid
+          in: path
+          description: Identifier of the category
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/category'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/category'
+    delete:
+      tags:
+        - categories
+      description: Deletes a category
+      operationId: deleteCategoriesCategoryid
+      parameters:
+        - name: categoryid
+          in: path
+          description: Identifier of the category
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /cities/:
+    get:
+      tags:
+        - cities
+      description: Loads a list of city
+      operationId: getCities
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: id_state
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_state
+          required: false
+          type: string
+          x-example: sample id_state
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/city'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - cities
+      description: Adds a city
+      operationId: postCities
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/city'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/city'
+  '/cities/{cityid}':
+    get:
+      tags:
+        - cities
+      description: Loads a city
+      operationId: getCitiesCityid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: cityid
+          in: path
+          description: Identifier of the city
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/city'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - cities
+      description: Stores a city
+      operationId: putCitiesCityid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: cityid
+          in: path
+          description: Identifier of the city
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/city'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/city'
+    delete:
+      tags:
+        - cities
+      description: Deletes a city
+      operationId: deleteCitiesCityid
+      parameters:
+        - name: cityid
+          in: path
+          description: Identifier of the city
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /collections/:
+    get:
+      tags:
+        - collections
+      description: Loads a list of collection
+      operationId: getCollections
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: description
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            description
+          required: false
+          type: string
+          x-example: sample description
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/collection'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - collections
+      description: Adds a collection
+      operationId: postCollections
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/collection'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/collection'
+  '/collections/{collectionid}':
+    get:
+      tags:
+        - collections
+      description: Loads a collection
+      operationId: getCollectionsCollectionid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: collectionid
+          in: path
+          description: Identifier of the collection
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/collection'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - collections
+      description: Stores a collection
+      operationId: putCollectionsCollectionid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: collectionid
+          in: path
+          description: Identifier of the collection
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/collection'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/collection'
+    delete:
+      tags:
+        - collections
+      description: Deletes a collection
+      operationId: deleteCollectionsCollectionid
+      parameters:
+        - name: collectionid
+          in: path
+          description: Identifier of the collection
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /itemOrders/:
+    get:
+      tags:
+        - books_orders
+      description: Loads a list of books_orders
+      operationId: getItemOrders
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: price
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            price
+          required: false
+          type: string
+          x-example: sample price
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: id_book
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_book
+          required: false
+          type: string
+          x-example: sample id_book
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: id_order
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_order
+          required: false
+          type: string
+          x-example: sample id_order
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: quantity
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            quantity
+          required: false
+          type: string
+          x-example: sample quantity
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/books_orders'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - books_orders
+      description: Adds a books_orders
+      operationId: postItemOrders
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/books_orders'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/books_orders'
+  '/itemOrders/{item_orderid}':
+    get:
+      tags:
+        - books_orders
+      description: Loads a books_orders
+      operationId: getItemOrdersItem_orderid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: item_orderid
+          in: path
+          description: Identifier of the books_orders
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/books_orders'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - books_orders
+      description: Stores a books_orders
+      operationId: putItemOrdersItem_orderid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: item_orderid
+          in: path
+          description: Identifier of the books_orders
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/books_orders'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/books_orders'
+    delete:
+      tags:
+        - books_orders
+      description: Deletes a books_orders
+      operationId: deleteItemOrdersItem_orderid
+      parameters:
+        - name: item_orderid
+          in: path
+          description: Identifier of the books_orders
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /orders/:
+    get:
+      tags:
+        - orders
+      description: Loads a list of order
+      operationId: getOrders
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: id_user
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_user
+          required: false
+          type: string
+          x-example: sample id_user
+        - name: discount
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            discount
+          required: false
+          type: string
+          x-example: sample discount
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: value
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            value
+          required: false
+          type: string
+          x-example: sample value
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: order_date
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            order_date
+          required: false
+          type: string
+          x-example: sample order_date
+        - name: final_value
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            final_value
+          required: false
+          type: string
+          x-example: sample final_value
+        - name: notes
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            notes
+          required: false
+          type: string
+          x-example: sample notes
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/order'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - orders
+      description: Adds a order
+      operationId: postOrders
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/order'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/order'
+  '/orders/{orderid}':
+    get:
+      tags:
+        - orders
+      description: Loads a order
+      operationId: getOrdersOrderid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: orderid
+          in: path
+          description: Identifier of the order
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/order'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - orders
+      description: Stores a order
+      operationId: putOrdersOrderid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: orderid
+          in: path
+          description: Identifier of the order
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/order'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/order'
+    delete:
+      tags:
+        - orders
+      description: Deletes a order
+      operationId: deleteOrdersOrderid
+      parameters:
+        - name: orderid
+          in: path
+          description: Identifier of the order
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /publishers/:
+    get:
+      tags:
+        - publisher
+      description: Loads a list of publisher
+      operationId: getPublishers
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: site
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            site
+          required: false
+          type: string
+          x-example: sample site
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: email
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            email
+          required: false
+          type: string
+          x-example: sample email
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/publisher'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - publisher
+      description: Adds a publisher
+      operationId: postPublishers
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/publisher'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/publisher'
+  '/publishers/{publisherid}':
+    get:
+      tags:
+        - publisher
+      description: Loads a publisher
+      operationId: getPublishersPublisherid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: publisherid
+          in: path
+          description: Identifier of the publisher
+          required: true
+          type: string
+          x-example: sample publisherid
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/publisher'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - publisher
+      description: Stores a publisher
+      operationId: putPublishersPublisherid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: publisherid
+          in: path
+          description: Identifier of the publisher
+          required: true
+          type: string
+          x-example: sample publisherid
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/publisher'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/publisher'
+    delete:
+      tags:
+        - publisher
+      description: Deletes a publisher
+      operationId: deletePublishersPublisherid
+      parameters:
+        - name: publisherid
+          in: path
+          description: Identifier of the publisher
+          required: true
+          type: string
+          x-example: sample publisherid
+      responses:
+        '200':
+          description: Status 200
+  /states/:
+    get:
+      tags:
+        - states
+      description: Loads a list of state
+      operationId: getStates
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: uf
+          in: query
+          description: Allows to filter the collections of result by the value of field uf
+          required: false
+          type: string
+          x-example: sample uf
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/state'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - states
+      description: Adds a state
+      operationId: postStates
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/state'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/state'
+  '/states/{stateid}':
+    get:
+      tags:
+        - states
+      description: Loads a state
+      operationId: getStatesStateid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: stateid
+          in: path
+          description: Identifier of the state
+          required: true
+          type: string
+          x-example: sample stateid
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/state'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - states
+      description: Stores a state
+      operationId: putStatesStateid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: stateid
+          in: path
+          description: Identifier of the state
+          required: true
+          type: string
+          x-example: sample stateid
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/state'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/state'
+    delete:
+      tags:
+        - states
+      description: Deletes a state
+      operationId: deleteStatesStateid
+      parameters:
+        - name: stateid
+          in: path
+          description: Identifier of the state
+          required: true
+          type: string
+          x-example: sample stateid
+      responses:
+        '200':
+          description: Status 200
+  /user_usergroup_map/:
+    get:
+      tags:
+        - user_usergroup_map
+      description: Loads a list of usergroup_map
+      operationId: getUsergroupMaps
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: id_group
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_group
+          required: false
+          type: string
+          x-example: sample id_group
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: id_user
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_user
+          required: false
+          type: string
+          x-example: sample id_user
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/usergroup_map'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - user_usergroup_map
+      description: Adds a usergroup_map
+      operationId: postUsergroupMaps
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/usergroup_map'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/usergroup_map'
+  '/user_usergroup_map/{usergroup_mapid}':
+    get:
+      tags:
+        - user_usergroup_map
+      description: Loads a usergroup_map
+      operationId: getUsergroupMapsUsergroup_mapid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: usergroup_mapid
+          in: path
+          description: Identifier of the usergroup_map
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/usergroup_map'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - user_usergroup_map
+      description: Stores a usergroup_map
+      operationId: putUsergroupMapsUsergroup_mapid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: usergroup_mapid
+          in: path
+          description: Identifier of the usergroup_map
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/usergroup_map'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/usergroup_map'
+    delete:
+      tags:
+        - user_usergroup_map
+      description: Deletes a usergroup_map
+      operationId: deleteUsergroupMapsUsergroup_mapid
+      parameters:
+        - name: usergroup_mapid
+          in: path
+          description: Identifier of the usergroup_map
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /usergroups/:
+    get:
+      tags:
+        - usergroups
+      description: Loads a list of usergroup
+      operationId: getUsergroups
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: description
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            description
+          required: false
+          type: string
+          x-example: sample description
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/usergroup'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - usergroups
+      description: Adds a usergroup
+      operationId: postUsergroups
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/usergroup'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/usergroup'
+  '/usergroups/{usergroupid}':
+    get:
+      tags:
+        - usergroups
+      description: Loads a usergroup
+      operationId: getUsergroupsUsergroupid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: usergroupid
+          in: path
+          description: Identifier of the usergroup
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/usergroup'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - usergroups
+      description: Stores a usergroup
+      operationId: putUsergroupsUsergroupid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: usergroupid
+          in: path
+          description: Identifier of the usergroup
+          required: true
+          type: string
+          x-example: '1'
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/usergroup'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/usergroup'
+    delete:
+      tags:
+        - usergroups
+      description: Deletes a usergroup
+      operationId: deleteUsergroupsUsergroupid
+      parameters:
+        - name: usergroupid
+          in: path
+          description: Identifier of the usergroup
+          required: true
+          type: string
+          x-example: '1'
+      responses:
+        '200':
+          description: Status 200
+  /users/:
+    get:
+      tags:
+        - users
+      description: Loads a list of user
+      operationId: getUsers
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: id_city
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            id_city
+          required: false
+          type: string
+          x-example: sample id_city
+        - name: phone_number
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            phone_number
+          required: false
+          type: string
+          x-example: sample phone_number
+        - name: login
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            login
+          required: false
+          type: string
+          x-example: sample login
+        - name: email
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            email
+          required: false
+          type: string
+          x-example: sample email
+        - name: password
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            password
+          required: false
+          type: string
+          x-example: sample password
+        - name: address
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            address
+          required: false
+          type: string
+          x-example: sample address
+        - name: $size
+          in: query
+          description: Size of the page to retrieve. Integer value
+          required: false
+          type: string
+          x-example: sample $size
+        - name: name
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            name
+          required: false
+          type: string
+          x-example: sample name
+        - name: id
+          in: query
+          description: Allows to filter the collections of result by the value of field id
+          required: false
+          type: string
+          x-example: sample id
+        - name: $page
+          in: query
+          description: Number of the page to retrieve. Integer value.
+          required: false
+          type: string
+          x-example: sample $page
+        - name: $sort
+          in: query
+          description: >-
+            orders in which to retrieve the results. Multiple sort criteria can
+            be passed. Example: sort=age ASC,height DESC
+          required: false
+          type: string
+          x-example: sample $sort
+        - name: registration
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            registration
+          required: false
+          type: string
+          x-example: sample registration
+        - name: birthdate
+          in: query
+          description: >-
+            Allows to filter the collections of result by the value of field
+            birthdate
+          required: false
+          type: string
+          x-example: sample birthdate
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        '400':
+          description: Status 400
+    post:
+      tags:
+        - users
+      description: Adds a user
+      operationId: postUsers
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/user'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/user'
+  '/users/{userid}':
+    get:
+      tags:
+        - users
+      description: Loads a user
+      operationId: getUsersUserid
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: userid
+          in: path
+          description: Identifier of the user
+          required: true
+          type: string
+          x-example: sample userid
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/user'
+        '400':
+          description: Status 400
+    put:
+      tags:
+        - users
+      description: Stores a user
+      operationId: putUsersUserid
+      consumes:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      produces:
+        - application/json
+        - application/x-yaml
+        - application/xml
+        - text/xml
+      parameters:
+        - name: userid
+          in: path
+          description: Identifier of the user
+          required: true
+          type: string
+          x-example: sample userid
+        - in: body
+          name: body
+          required: false
+          schema:
+            $ref: '#/definitions/user'
+      responses:
+        '200':
+          description: Status 200
+          schema:
+            $ref: '#/definitions/user'
+    delete:
+      tags:
+        - users
+      description: Deletes a user
+      operationId: deleteUsersUserid
+      parameters:
+        - name: userid
+          in: path
+          description: Identifier of the user
+          required: true
+          type: string
+          x-example: sample userid
+      responses:
+        '200':
+          description: Status 200
+definitions:
+  author:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: sample name
+    example: '{"id":1,"name":"sample name"}'
+  book:
+    type: object
+    required:
+      - call_number
+      - edition
+      - id
+      - id_author
+      - id_category
+      - id_publisher
+      - price_cost
+      - price_sale
+      - stock
+      - title
+    properties:
+      abstract:
+        type: string
+        example: sample abstract
+      call_number:
+        type: string
+        example: sample call_number
+      edition:
+        type: string
+        example: sample edition
+      id:
+        type: integer
+        format: int32
+        example: 1
+      id_author:
+        type: integer
+        format: int32
+        example: 1
+      id_category:
+        type: integer
+        format: int32
+        example: 1
+      id_collection:
+        type: integer
+        format: int32
+        example: 1
+      id_publisher:
+        type: integer
+        format: int32
+        example: 1
+      isbn:
+        type: string
+        example: sample isbn
+      notes:
+        type: string
+        example: sample notes
+      price_cost:
+        type: number
+        format: float
+        example: 1.1
+      price_sale:
+        type: number
+        format: float
+        example: 1.1
+      publish_date:
+        type: integer
+        format: int64
+        example: 123456789
+      publish_place:
+        type: string
+        example: sample publish_place
+      stock:
+        type: integer
+        format: int32
+        example: 1
+      title:
+        type: string
+        example: sample title
+      volume:
+        type: string
+        example: sample volume
+    example: >-
+      {"id":1,"title":"sample title","isbn":"sample
+      isbn","price_cost":1.1,"price_sale":1.1,"stock":1,"call_number":"sample
+      call_number","edition":"sample edition","volume":"sample
+      volume","publish_place":"sample
+      publish_place","publish_date":123456789,"abstract":"sample
+      abstract","notes":"sample
+      notes","id_publisher":1,"id_collection":1,"id_author":1,"id_category":1}
+  category:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: sample name
+    example: '{"id":1,"name":"sample name"}'
+  city:
+    type: object
+    required:
+      - id
+      - id_state
+      - name
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      id_state:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: sample name
+    example: '{"id":1,"name":"sample name","id_state":1}'
+  collection:
+    type: object
+    required:
+      - description
+      - id
+    properties:
+      description:
+        type: string
+        example: sample description
+      id:
+        type: integer
+        format: int32
+        example: 1
+    example: '{"id":1,"description":"sample description"}'
+  books_orders:
+    type: object
+    required:
+      - id
+      - id_book
+      - id_order
+      - price
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      id_book:
+        type: integer
+        format: int32
+        example: 1
+      id_order:
+        type: integer
+        format: int32
+        example: 1
+      price:
+        type: number
+        format: float
+        example: 1.1
+      quantity:
+        type: number
+        format: float
+        example: 1.1
+    example: '{"id":1,"quantity":1.1,"price":1.1,"id_book":1,"id_order":1}'
+  order:
+    type: object
+    required:
+      - final_value
+      - id
+      - id_user
+      - order_date
+    properties:
+      discount:
+        type: number
+        format: float
+        example: 1.1
+      final_value:
+        type: number
+        format: float
+        example: 1.1
+      id:
+        type: integer
+        format: int32
+        example: 1
+      id_user:
+        type: integer
+        format: int32
+        example: 1
+      notes:
+        type: string
+        example: sample notes
+      order_date:
+        type: integer
+        format: int64
+        example: 123456789
+      value:
+        type: number
+        format: float
+        example: 1.1
+    example: >-
+      {"id":1,"id_user":1,"order_date":123456789,"value":1.1,"discount":1.1,"final_value":1.1,"notes":"sample
+      notes"}
+  publisher:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      email:
+        type: string
+        example: sample email
+      id:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: sample name
+      site:
+        type: string
+        example: sample site
+    example: '{"id":1,"name":"sample name","site":"sample site","email":"sample email"}'
+  state:
+    type: object
+    required:
+      - id
+      - name
+      - uf
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: sample name
+      uf:
+        type: string
+        example: sample uf
+    example: '{"id":1,"name":"sample name","uf":"sample uf"}'
+  user:
+    type: object
+    required:
+      - birthdate
+      - email
+      - id
+      - id_city
+      - login
+      - name
+      - password
+      - phone_number
+    properties:
+      address:
+        type: string
+        example: sample address
+      birthdate:
+        type: integer
+        format: int64
+        example: 123456789
+      email:
+        type: string
+        example: sample email
+      id:
+        type: integer
+        format: int32
+        example: 1
+      id_city:
+        type: integer
+        format: int32
+        example: 1
+      login:
+        type: string
+        example: sample login
+      name:
+        type: string
+        example: sample name
+      password:
+        type: string
+        example: sample password
+      phone_number:
+        type: string
+        example: sample phone_number
+      registration:
+        type: integer
+        format: int64
+        example: 123456789
+    example: >-
+      {"id":1,"name":"sample name","birthdate":123456789,"address":"sample
+      address","phone_number":"sample phone_number","email":"sample
+      email","login":"sample login","password":"sample
+      password","registration":123456789,"id_city":1}
+  usergroup:
+    type: object
+    required:
+      - id
+      - name
+    properties:
+      description:
+        type: string
+        example: sample description
+      id:
+        type: integer
+        format: int32
+        example: 1
+      name:
+        type: string
+        example: sample name
+    example: '{"id":1,"name":"sample name","description":"sample description"}'
+  usergroup_map:
+    type: object
+    required:
+      - id
+      - id_group
+      - id_user
+    properties:
+      id:
+        type: integer
+        format: int32
+        example: 1
+      id_group:
+        type: integer
+        format: int32
+        example: 1
+      id_user:
+        type: integer
+        format: int32
+        example: 1
+    example: '{"id":1,"id_user":1,"id_group":1}'

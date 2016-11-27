@@ -1,0 +1,57 @@
+.icon-48-resources {
+	background-image: url(../images/l_resources.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-resource {
+	background-image: url(../images/l_resources.png);
+	padding-left: 60px !important;
+}
+
+.color-box-resources {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.icon-48-externalsenders {
+	background-image: url(../images/l_externalsenders.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-externalsender {
+	background-image: url(../images/l_externalsenders.png);
+	padding-left: 60px !important;
+}
+
+.color-box-externalsenders {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.icon-48-keys {
+	background-image: url(../images/l_keys.png);
+	padding-left: 60px !important;
+}
+
+.icon-48-key {
+	background-image: url(../images/l_keys.png);
+	padding-left: 60px !important;
+}
+
+.color-box-keys {
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-right: 5px;
+	border: 1px solid rgba(0, 0, 0, .2);
+}
+
+.other-filters {
+	padding: 0 14px;
+}

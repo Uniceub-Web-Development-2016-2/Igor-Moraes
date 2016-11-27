@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
+		<field name="state" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="inputbox" size="1"
+		       default="0">
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		<field name="key" type="text" filter="raw" required="true" label="COM_RESTFUL_FORM_LBL_KEY_KEY"
+		       description="COM_RESTFUL_FORM_DESC_KEY_KEY" hint="COM_RESTFUL_FORM_LBL_KEY_KEY"/>
+		<field name="user_id" type="user" default="0" label="COM_RESTFUL_FORM_LBL_KEY_USER_ID"
+		       description="COM_RESTFUL_FORM_DESC_KEY_USER_ID" hint="COM_RESTFUL_FORM_LBL_KEY_USER_ID"/>
+		<field name="daily_requests" required="true" default="0" label="COM_RESTFUL_FORM_LBL_KEY_DAILY_REQUESTS"
+		       description="COM_RESTFUL_FORM_DESC_KEY_DAILY_REQUESTS" hint="COM_RESTFUL_FORM_LBL_KEY_DAILY_REQUESTS"/>
+		<field name="expiration_date" default="0000-00-00" type="calendar" class="inputbox"
+		       label="COM_RESTFUL_FORM_LBL_KEY_EXPIRATION_DATE" description="COM_RESTFUL_FORM_DESC_KEY_EXPIRATION_DATE"
+		       hint="COM_RESTFUL_FORM_LBL_KEY_EXPIRATION_DATE"/>
+		<field name="comment" type="textarea" filter="raw" label="COM_RESTFUL_FORM_LBL_KEY_COMMENT"
+		       description="COM_RESTFUL_FORM_DESC_KEY_COMMENT" hint="COM_RESTFUL_FORM_LBL_KEY_COMMENT"/>
+		<field name="hits" default="0" label="COM_RESTFUL_FORM_LBL_KEY_HITS"
+		       description="COM_RESTFUL_FORM_DESC_KEY_HITS" hint="COM_RESTFUL_FORM_LBL_KEY_HITS"/>
+		<field name="last_visit" default="0000-00-00" type="calendar" class="inputbox" filter="safehtml"
+		       format="%Y-%m-%d %H:%M:%S" label="COM_RESTFUL_FORM_LBL_KEY_LAST_VISIT"
+		       description="COM_RESTFUL_FORM_DESC_KEY_LAST_VISIT" hint="COM_RESTFUL_FORM_LBL_KEY_LAST_VISIT"/>
+		<field name="current_day" default="0000-00-00" type="calendar" class="inputbox" filter="safehtml"
+		       format="%Y-%m-%d %H:%M:%S" label="COM_RESTFUL_FORM_LBL_KEY_CURRENT_DAY"
+		       description="COM_RESTFUL_FORM_DESC_KEY_CURRENT_DAY" hint="COM_RESTFUL_FORM_LBL_KEY_CURRENT_DAY"/>
+		<field name="current_hits" default="0" label="COM_RESTFUL_FORM_LBL_KEY_CURRENT_HITS"
+		       description="COM_RESTFUL_FORM_DESC_KEY_CURRENT_HITS" hint="COM_RESTFUL_FORM_LBL_KEY_CURRENT_HITS"/>
+		<field name="ordering"/>
+		<field name="checked_out" type="hidden" filter="unset"/>
+		<field name="checked_out_time" default="0000-00-00 00:00:00" type="hidden" filter="unset"/>
+		<field name="created_by" type="createdby" label="COM_RESTFUL_FORM_LBL_KEY_CREATED_BY"
+		       description="COM_RESTFUL_FORM_DESC_KEY_CREATED_BY" hidden="true"
+		       hint="COM_RESTFUL_FORM_LBL_KEY_CREATED_BY"/>
+		<field name="modified_by" type="modifiedby" label="COM_RESTFUL_FORM_LBL_KEY_MODIFIED_BY"
+		       description="COM_RESTFUL_FORM_DESC_KEY_MODIFIED_BY" hidden="true"
+		       hint="COM_RESTFUL_FORM_LBL_KEY_MODIFIED_BY"/>
+		<field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL"
+		       description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
+	</fieldset>
+	<fieldset name="accesscontrol">
+		<field name="asset_id" type="hidden" filter="unset"/>
+		<field name="rules" type="rules" label="JFIELD_RULES_LABEL" translate_label="false" filter="rules"
+		       validate="rules" class="inputbox" component="com_restful" section="key"/>
+	</fieldset>
+</form>

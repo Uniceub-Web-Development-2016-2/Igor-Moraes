@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.0"
+           type="plugin"
+           group="ajax"
+           method="upgrade">
+	<name>Ajax - Thomisticus RESTful</name>
+	<version>1.0</version>
+	<creationDate>November 2016</creationDate>
+	<author>Igor Moraes</author>
+	<authorEmail>igor.sgm@gmail.com</authorEmail>
+	<authorUrl>www.tridiacriacao.com</authorUrl>
+	<license>GNU General Public License version 2 or later</license>
+	<copyright>Copyright (C) Igor Moraes. All rights reserved.</copyright>
+	<description>Joomla Ajax RESTful Plugin</description>
+
+	<files>
+		<filename plugin="restful">restful.php</filename>
+	</files>
+
+	<config>
+	</config>
+
+</extension>
