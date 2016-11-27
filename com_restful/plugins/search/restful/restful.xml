@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="search">
+	<name>Plugin Search Thomisticus RESTful</name>
+	<author>Igor Moraes</author>
+	<creationDate>2016-11-25</creationDate>
+	<copyright>2016 Igor Moraes</copyright>
+	<license>GNU General Public License</license>
+	<authorEmail>igor.sgm@gmail.com</authorEmail>
+	<authorUrl>http://www.tridiacriacao.com</authorUrl>
+	<version>CVS: 1.0.0</version>
+	<description>PLG_SEARCH_COM_RESTFUL_XML_DESCRIPTION</description>
+	<files>
+		<filename plugin="restful">restful.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<languages folder="../../../languages/site/search/restful">
+
+		<language tag="en-GB">../../../languages/plugins/search/restful/en-GB/en-GB.plg_search_restful.ini</language>
+		<language tag="en-GB">../../../languages/plugins/search/restful/en-GB/en-GB.plg_search_restful.sys.ini
+		</language>
+	</languages>
+	<config>
+		<fields name="params">
+
+			<fieldset name="basic">
+				<field name="search_limit" type="text" default="50" size="5"
+				       description="PLG_SEARCH_COM_RESTFUL_FIELD_SEARCHLIMIT_DESC"
+				       label="PLG_SEARCH_COM_RESTFUL_FIELD_SEARCHLIMIT_LABEL"/>
+			</fieldset>
+
+		</fields>
+	</config>
+</extension>

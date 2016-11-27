@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+	<fieldset>
+		<field name="id" type="text" readonly="true" class="readonly" default="0" description="JGLOBAL_FIELD_ID_DESC"/>
+		<field name="state" default="1" type="list" label="JSTATUS" description="JFIELD_PUBLISHED_DESC" class="inputbox"
+		       size="1">
+			<option value="1">JPUBLISHED</option>
+			<option value="0">JUNPUBLISHED</option>
+			<option value="2">JARCHIVED</option>
+			<option value="-2">JTRASHED</option>
+		</field>
+		<field name="table" type="list" required="true" label="COM_RESTFUL_FORM_LBL_RESOURCE_TABLE"
+		       description="COM_RESTFUL_FORM_DESC_RESOURCE_TABLE" hint="COM_RESTFUL_FORM_LBL_RESOURCE_TABLE">
+			<option value="0">COM_RESTFUL_RESOURCES_TABLE_OPTION_0</option>
+		</field>
+		<field name="privileges" type="checkboxes" required="true" label="COM_RESTFUL_FORM_LBL_RESOURCE_PRIVILEGES"
+		       description="COM_RESTFUL_FORM_DESC_RESOURCE_PRIVILEGES" hint="COM_RESTFUL_FORM_LBL_RESOURCE_PRIVILEGES">
+			<option value="create">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_CREATE</option>
+			<option value="read">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_READ</option>
+			<option value="update">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_UPDATE</option>
+			<option value="delete">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_DELETE</option>
+		</field>
+		<field name="columns" type="checkboxes" required="true" label="COM_RESTFUL_FORM_LBL_RESOURCE_COLUMNS"
+		       description="COM_RESTFUL_FORM_DESC_RESOURCE_COLUMNS" hint="COM_RESTFUL_FORM_LBL_RESOURCE_COLUMNS">
+			<option value="0">COM_RESTFUL_RESOURCES_COLUMNS_OPTION_0</option>
+		</field>
+		<field name="model_schema" type="textarea" label="COM_RESTFUL_FORM_LBL_RESOURCE_MODEL_SCHEMA"
+		       description="COM_RESTFUL_FORM_DESC_RESOURCE_MODEL_SCHEMA"
+		       hint="COM_RESTFUL_FORM_LBL_RESOURCE_MODEL_SCHEMA"/>
+		<field name="ordering"/>
+		<field name="checked_out" type="hidden" filter="unset"/>
+		<field name="checked_out_time" default="0000-00-00 00:00:00" type="hidden" filter="unset"/>
+		<field name="created_by" type="createdby" label="COM_RESTFUL_FORM_LBL_RESOURCE_CREATED_BY"
+		       description="COM_RESTFUL_FORM_DESC_RESOURCE_CREATED_BY" hidden="true"
+		       hint="COM_RESTFUL_FORM_LBL_RESOURCE_CREATED_BY"/>
+		<field name="modified_by" type="modifiedby" label="COM_RESTFUL_FORM_LBL_RESOURCE_MODIFIED_BY"
+		       description="COM_RESTFUL_FORM_DESC_RESOURCE_MODIFIED_BY" hidden="true"
+		       hint="COM_RESTFUL_FORM_LBL_RESOURCE_MODIFIED_BY"/>
+		<field name="version_note" type="text" label="JGLOBAL_FIELD_VERSION_NOTE_LABEL"
+		       description="JGLOBAL_FIELD_VERSION_NOTE_DESC" class="inputbox" size="45" labelclass="control-label"/>
+		<field name="filter_table" type="list" onchange="this.form.submit();">
+			<option value="0">COM_RESTFUL_RESOURCES_TABLE_OPTION_0</option>
+		</field>
+		<field name="filter_privileges" type="list" onchange="this.form.submit();">
+			<option value="create">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_CREATE</option>
+			<option value="read">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_READ</option>
+			<option value="update">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_UPDATE</option>
+			<option value="delete">COM_RESTFUL_RESOURCES_PRIVILEGES_OPTION_DELETE</option>
+		</field>
+		<field name="filter_columns" type="list" onchange="this.form.submit();">
+			<option value="0">COM_RESTFUL_RESOURCES_COLUMNS_OPTION_0</option>
+		</field>
+	</fieldset>
+	<fieldset name="accesscontrol">
+		<field name="asset_id" type="hidden" filter="unset"/>
+		<field name="rules" type="rules" label="JFIELD_RULES_LABEL" translate_label="false" filter="rules"
+		       validate="rules" class="inputbox" component="com_restful" section="resource"/>
+	</fieldset>
+</form>

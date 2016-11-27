@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<component>
+	<table action="change" old_name="#__restfull_keys" new_name="#__restful_keys" table_name="#__restful_keys"
+	       storage_engine="InnoDB" collation="utf8mb4_unicode_ci">
+		<field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" description=""/>
+		<field action="change" old_name="published" new_name="state" field_name="state" field_type="TINYINT"
+		       field_length="1" description=""/>
+		<field field_name="key" field_type="VARCHAR" field_length="255" description=""/>
+		<field action="change" field_name="user_id" field_type="INT" field_length="11" description="Existing user id"/>
+		<field action="change" field_name="daily_requests" field_type="INT" field_length="11"
+		       description="Max number of daily requests (0=Unlimited)"/>
+		<field field_name="expiration_date" field_type="DATE" description=""/>
+		<field field_name="comment" field_type="TEXT" description=""/>
+		<field field_name="hits" field_type="INT" field_length="11" description=""/>
+		<field field_name="last_visit" field_type="DATETIME" description=""/>
+		<field action="change" field_name="current_day" field_type="DATETIME"
+		       description="Current day for daily requests limit"/>
+		<field action="change" field_name="current_hits" field_type="INT" field_length="11"
+		       description="Hits of current day for daily requests limit"/>
+		<field action="add" field_name="ordering" field_type="INT" field_length="11" description=""/>
+		<field action="change" field_name="checked_out" field_type="INT" field_length="11" description=""/>
+		<field action="add" field_name="checked_out_time" field_type="DATETIME" description=""/>
+		<field action="add" field_name="created_by" field_type="INT" field_length="11" description=""/>
+		<field action="add" field_name="modified_by" field_type="INT" field_length="11" description=""/>
+	</table>
+	<table action="change" old_name="#__restfull_resources" new_name="#__restful_resources"
+	       table_name="#__restful_resources" storage_engine="InnoDB" collation="utf8mb4_unicode_ci">
+		<field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+		<field action="change" old_name="published" new_name="state" field_name="state" field_type="TINYINT"
+		       field_length="1" index="index" description=""/>
+		<field action="change" field_name="table" field_type="VARCHAR" field_length="255"
+		       description="Resource name (which is usually the table name)"/>
+		<field action="change" field_name="privileges" field_type="VARCHAR" field_length="255"
+		       description="The privileges that this resource (table) will have for those who access the webservice."/>
+		<field action="change" field_name="columns" field_type="VARCHAR" field_length="255"
+		       description="The columns that appear in JSON, for those who access the webservice"/>
+		<field action="add" field_name="model_schema" field_type="TEXT" description="A json example for requests."/>
+		<field action="add" field_name="ordering" field_type="INT" field_length="11" description=""/>
+		<field action="add" field_name="checked_out" field_type="INT" field_length="11" description=""/>
+		<field action="add" field_name="checked_out_time" field_type="DATETIME" description=""/>
+		<field action="add" field_name="created_by" field_type="INT" field_length="11" description=""/>
+		<field action="add" field_name="modified_by" field_type="INT" field_length="11" description=""/>
+	</table>
+	<table action="change" old_name="#__restful_client" new_name="#__restful_external_senders"
+	       table_name="#__restful_external_senders" storage_engine="InnoDB" collation="utf8mb4_unicode_ci">
+		<field field_name="id" field_type="INT" field_length="11" is_autoincrement="1" index="primary" description=""/>
+		<field field_name="state" field_type="TINYINT" field_length="1" index="index" description=""/>
+		<field action="change" field_name="url" field_type="VARCHAR" field_length="255"
+		       description="URL to send the request"/>
+		<field action="add" field_name="route" field_type="VARCHAR" field_length="255" description=""/>
+		<field action="add" field_name="table" field_type="VARCHAR" field_length="255"
+		       description="Table name that will have data sent to the URL."/>
+		<field action="add" field_name="model_schema_relationship" field_type="VARCHAR" field_length="255"
+		       description="Area to handle the way JSON is assembled/supplied and vice versa."/>
+		<field field_name="ordering" field_type="INT" field_length="11" index="index" description=""/>
+		<field field_name="checked_out" field_type="INT" field_length="11" index="index" description=""/>
+		<field field_name="checked_out_time" field_type="DATETIME" description=""/>
+		<field field_name="created_by" field_type="INT" field_length="11" index="index" description=""/>
+		<field field_name="modified_by" field_type="INT" field_length="11" index="index" description=""/>
+	</table>
+</component>

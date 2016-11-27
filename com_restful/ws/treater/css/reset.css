@@ -1,0 +1,55 @@
+/**************************************
+/************ CSS TRIGGER *************
+**************************************/
+/*noinspection CssUnusedSymbol*/
+.trigger {
+	position: relative;
+	padding: 20px;
+	color: #333;
+	background: #CACACA;
+	border: 1px solid #333;
+	font: 400 14px 'Verdana', sans-serif;
+}
+
+/*noinspection CssUnusedSymbol*/
+.trigger {
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+/*noinspection CssUnusedSymbol*/
+.trigger .ajax_close {
+	position: absolute;
+	right: 10px;
+	cursor: pointer;
+	top: 10px;
+	background: black;
+	width: 20px;
+	height: 20px;
+	display: none;
+}
+
+/*noinspection CssUnusedSymbol,CssUnusedSymbol*/
+.trigger.accept {
+	background-color: #3ADB76;
+	border-color: #2c9e50;
+}
+
+/*noinspection CssUnusedSymbol,CssUnusedSymbol*/
+.trigger.information {
+	background-color: #2199E8;
+	border-color: #1f72b5;
+}
+
+/*noinspection CssUnusedSymbol,CssUnusedSymbol*/
+.trigger.alert {
+	background-color: #FFAE00;
+	border-color: #ba8100;
+}
+
+/*noinspection CssUnusedSymbol,CssUnusedSymbol*/
+.trigger.error {
+	background-color: #EC5840;
+	border-color: #ae4730;
+}

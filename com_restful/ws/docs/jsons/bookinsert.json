@@ -1,0 +1,18 @@
+{
+  "title": "Test 2",
+  "isbn": "23424635645",
+  "price_cost": "100",
+  "price_sale": "150",
+  "stock": "25",
+  "call_number": "L234 W724",
+  "edition": "1",
+  "volume": "1",
+  "publish_place": "Brasilia",
+  "publish_date": "2016-10-12",
+  "abstract": "Algum resumo aqui",
+  "notes": "Algumas notas aqui",
+  "id_publisher": "1",
+  "id_collection": "1",
+  "id_author": "2",
+  "id_category": "2"
+}
