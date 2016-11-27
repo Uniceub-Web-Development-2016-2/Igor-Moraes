@@ -32,9 +32,11 @@ Tudo que vem depois de /ws é um resource, ou seja, o nome de uma tabela no banc
 
 ### Desenvolvido com
 
-* PHP 7.0.0
-* JavaScript & jQuery
+* PHP 7.0.1
+* MySQL v5.5.42
+* JavaScript & jQuery v1.12.4
 * HTML5/CSS3
+* Bootstrap v3.3.7
 
 ## Melhorias e contribuição
 
