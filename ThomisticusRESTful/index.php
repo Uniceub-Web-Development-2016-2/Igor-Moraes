@@ -45,5 +45,10 @@ JDEBUG ? JProfiler::getInstance('Application')->setStart($startTime, $startMem)-
 // Instantiate the application.
 $app = JFactory::getApplication('site');
 
+JHtml::_('jquery.framework');
+$document = JFactory::getDocument();
+$document->addScriptDeclaration("var juri_base = '" . JUri::root() . "';");
+$document->addScript(JUri::base() . "/media/com_restful/js/logtable.js");
+
 // Execute the application.
 $app->execute();
