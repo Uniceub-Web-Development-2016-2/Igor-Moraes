@@ -19,7 +19,7 @@ jimport('joomla.filesystem.file');
  * Updates the database structure of the component
  *
  * @version  Release: 0.2b
- * @author   Component Creator <support@component-creator.com>
+ * @author   Igor Moraes
  * @since    0.1b
  */
 class com_restfulInstallerScript

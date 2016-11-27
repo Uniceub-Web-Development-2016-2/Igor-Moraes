@@ -26,11 +26,11 @@ class RestfulHelpersRestful
 	 */
 	public static function addSubmenu($vName = '')
 	{
-		JHtmlSidebar::addEntry(
-			JText::_('COM_RESTFUL_TITLE_DASHBOARD'),
-			'index.php?option=com_restful&view=dashboard',
-			$vName == 'dashboard'
-		);
+//		JHtmlSidebar::addEntry(
+//			JText::_('COM_RESTFUL_TITLE_DASHBOARD'),
+//			'index.php?option=com_restful&view=dashboard',
+//			$vName == 'dashboard'
+//		);
 
 		JHtmlSidebar::addEntry(
 			JText::_('COM_RESTFUL_TITLE_RESOURCES'),

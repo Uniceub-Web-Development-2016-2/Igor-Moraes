@@ -150,7 +150,7 @@ class Request
 	{
 		$s = explode("?", $resource);
 		$r = explode("/", $s[0]);
-		$this->resource = $r[5];
+		$this->resource = $r[4];
 	}
 
 	/**
